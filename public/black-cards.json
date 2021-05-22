@@ -1,0 +1,542 @@
+[
+	{ "text": "_ + _ = Hipsters", "pick": 2, "pack": 0 },
+	{ "text": "_ is a sure sign of mankind's decline.", "pick": 1, "pack": 0 },
+	{ "text": "_ would only happen in my worst nightmares.", "pick": 1, "pack": 0 },
+	{ "text": "_: good to the last drop.", "pick": 1, "pack": 0 },
+	{ "text": "_: kid tested, mother approved.", "pick": 1, "pack": 0 },
+	{ "text": "_: kid-tested, mother-approved.", "pick": 1, "pack": 0 },
+	{ "text": "_: Once you pop, the fun don't stop!", "pick": 1, "pack": 0 },
+	{ "text": "_? Oh yeah. There's porn about that.", "pick": 1, "pack": 0 },
+	{ "text": "_? There's an app for that.", "pick": 1, "pack": 0 },
+	{ "text": "_? Yeah, nah.", "pick": 1, "pack": 0 },
+	{ "text": "_. Awesome in theory, kind of a mess in practice.", "pick": 1, "pack": 0 },
+	{ "text": "_. Betcha can't have just one!", "pick": 1, "pack": 0 },
+	{ "text": "_. High five, bro.", "pick": 1, "pack": 0 },
+	{ "text": "_. It's a trap!", "pick": 1, "pack": 0 },
+	{ "text": "_. That was so metal.", "pick": 1, "pack": 0 },
+	{ "text": "_. That's how I want to die.", "pick": 1, "pack": 0 },
+	{ "text": "_. The best way to spice up your sex life.", "pick": 1, "pack": 0 },
+	{ "text": "★✰✰✰✰ Do NOT go here! Found _ in my Kung Pao chicken!", "pick": 1, "pack": 0 },
+	{ "text": "50% of all marriages end in _.", "pick": 1, "pack": 0 },
+	{
+		"text": "A recent laboratory study shows that undergraduates have 50% less sex after being exposed to _.",
+		"pick": 1,
+		"pack": 0
+	},
+	{ "text": "A romantic candlelit dinner would be incomplete without _.", "pick": 1, "pack": 0 },
+	{
+		"text": "A successful job interview begins with a firm handshake and ends with _.",
+		"pick": 1,
+		"pack": 0
+	},
+	{ "text": "ABC presents: \"_: The Story of _.\"", "pick": 2, "pack": 0 },
+	{
+		"text": "After eight years in the White House, how is Obama finally letting loose?",
+		"pick": 1,
+		"pack": 0
+	},
+	{
+		"text": "After four platinum albums and three Grammys, it's time to get back to my roots, to what inspired me to make music in the first place: _.",
+		"pick": 1,
+		"pack": 0
+	},
+	{
+		"text": "After Hurricane Katrina, Sean Penn brought _ to all the people of New Orleans.",
+		"pick": 1,
+		"pack": 0
+	},
+	{
+		"text": "After Hurricane Katrina, Sean Penn brought _ to the people of New Orleans.",
+		"pick": 1,
+		"pack": 0
+	},
+	{ "text": "After months of practice with _, I think I'm finally ready for _.", "pick": 2, "pack": 0 },
+	{ "text": "After the earthquake, Sean Penn brought _ to the people of Haiti.", "pick": 1, "pack": 0 },
+	{ "text": "Air Canada guidelines now prohibit _ on airplanes.", "pick": 1, "pack": 0 },
+	{ "text": "Airport security guidelines now prohibit _ on airplanes.", "pick": 1, "pack": 0 },
+	{ "text": "Alternative medicine is now embracing the curative powers of _.", "pick": 1, "pack": 0 },
+	{ "text": "And the Academy Award for _ goes to _.", "pick": 2, "pack": 0 },
+	{ "text": "And the BAFTA for _ goes to _.", "pick": 2, "pack": 0 },
+	{ "text": "And what did you bring for show and tell?", "pick": 1, "pack": 0 },
+	{
+		"text": "Anthropologists have recently discovered a primitive tribe that worships _.",
+		"pick": 1,
+		"pack": 0
+	},
+	{ "text": "Arby's: We Have _.", "pick": 1, "pack": 0 },
+	{
+		"text": "Are you thinking what I'm thinking, B1?\n\nI think I am, B2: it's _ time!",
+		"pick": 1,
+		"pack": 0
+	},
+	{ "text": "As my New Year's resolution, I vow to give up _.", "pick": 1, "pack": 0 },
+	{ "text": "As the mom of five rambunctious boys, I'm no stranger to _.", "pick": 1, "pack": 0 },
+	{ "text": "As the mum of five rambunctious boys, I'm no stranger to _.", "pick": 1, "pack": 0 },
+	{ "text": "Betcha can't have just one!", "pick": 1, "pack": 0 },
+	{ "text": "BILLY MAYS HERE FOR _.", "pick": 1, "pack": 0 },
+	{
+		"text": "Bravo's new reality show features eight washed-up celebrities living with _.",
+		"pick": 1,
+		"pack": 0
+	},
+	{ "text": "Brought to you by Bud Light®, the Official Beer of _.", "pick": 1, "pack": 0 },
+	{ "text": "Brought to you by Molson Canadian, the Official Beer of _.", "pick": 1, "pack": 0 },
+	{ "text": "Brought to you by XXXX Gold, the Official Beer of _.", "pick": 1, "pack": 0 },
+	{ "text": "But before I kill you, Mr. Bond, I must show you _.", "pick": 1, "pack": 0 },
+	{ "text": "CBC presents \"_: the Story of _.\"", "pick": 2, "pack": 0 },
+	{ "text": "Channel 4 presents _, the story of _.", "pick": 2, "pack": 0 },
+	{
+		"text": "Channel 5's new reality show features eight washed-up celebrities living with _.",
+		"pick": 1,
+		"pack": 0
+	},
+	{
+		"text": "Channel 9 is pleased to present its new variety show, \"Hey Hey It's _.\"",
+		"pick": 1,
+		"pack": 0
+	},
+	{ "text": "Charlie and the chocolate _.", "pick": 1, "pack": 0 },
+	{ "text": "Check me out, yo! I call this dance move \"_.\"", "pick": 1, "pack": 0 },
+	{ "text": "Click Here for _!!!", "pick": 1, "pack": 0 },
+	{
+		"text": "Coming this season, Samuel Beckett's classic existential play: Waiting for _.",
+		"pick": 1,
+		"pack": 0
+	},
+	{ "text": "Coming to Broadway this season, _: The Musical.", "pick": 1, "pack": 0 },
+	{ "text": "Coming to theaters this holiday season, \"Star Wars: The Rise of _.\"", "pick": 1, "pack": 0 },
+	{ "text": "Crikey! I've never seen _ like this before! Let's get a bit closer.", "pick": 1, "pack": 0 },
+	{ "text": "CTV presents \"_: the Story of _.\"", "pick": 2, "pack": 0 },
+	{ "text": "Daddy, why is mommy crying?", "pick": 1, "pack": 0 },
+	{ "text": "Daddy, why is mummy crying?", "pick": 1, "pack": 0 },
+	{ "text": "Dear Abby, I'm having some trouble with _ and would like your advice.", "pick": 1, "pack": 0 },
+	{ "text": "Dear Agony Aunt, I'm having some trouble with _ and I need your advice.", "pick": 1, "pack": 0 },
+	{
+		"text": "Dear Sir or Madam, We regret to inform you that the Office of _ has denied your request for _.",
+		"pick": 2,
+		"pack": 0
+	},
+	{
+		"text": "Doctor, you've gone too far! The human body wasn't meant to withstand that amount of _!",
+		"pick": 1,
+		"pack": 0
+	},
+	{ "text": "Dude, do not go in that bathroom. There's _ in there.", "pick": 1, "pack": 0 },
+	{ "text": "Dude, do not go in that washroom. There's _ in there.", "pick": 1, "pack": 0 },
+	{ "text": "Due to a PR fiasco, Walmart no longer offers _.", "pick": 1, "pack": 0 },
+	{
+		"text": "During his childhood, Salvador Dali produced hundreds of paintings of _.",
+		"pick": 1,
+		"pack": 0
+	},
+	{
+		"text": "During his short-lived boxing career, the Messiah fought under the name Jesus \"_\" Christ.",
+		"pick": 1,
+		"pack": 0
+	},
+	{
+		"text": "During Picasso's often-overlooked Brown Period, he produced hundreds of paintings of _.",
+		"pick": 1,
+		"pack": 0
+	},
+	{ "text": "During sex, I like to think about _.", "pick": 1, "pack": 0 },
+	{ "text": "Finally! A service that delivers _ right to your door.", "pick": 1, "pack": 0 },
+	{
+		"text": "For my turn, I will spend four gold and allocate all three workers to _.",
+		"pick": 1,
+		"pack": 0
+	},
+	{
+		"text": "Fun tip! When your man asks you to go down on him, try surprising him with _ instead.",
+		"pick": 1,
+		"pack": 0
+	},
+	{
+		"text": "Future historians will agree that _ marked the beginning of America's decline.",
+		"pick": 1,
+		"pack": 0
+	},
+	{ "text": "Having problems with _? Try _!", "pick": 2, "pack": 0 },
+	{
+		"text": "Here is the church\nHere is the steeple\nOpen the doors\nAnd there is _.",
+		"pick": 1,
+		"pack": 0
+	},
+	{
+		"text": "Hey guys, welcome to Boston Pizza! Would you like to start the night off right with _?",
+		"pick": 1,
+		"pack": 0
+	},
+	{
+		"text": "Hey guys, welcome to Chili's! Would you like to start the night off right with _?",
+		"pick": 1,
+		"pack": 0
+	},
+	{
+		"text": "Hey guys, welcome to Sizzler! Would you like to start the night off right with _?",
+		"pick": 1,
+		"pack": 0
+	},
+	{
+		"text": "Hey guys, welcome to TGIF! Would you like to start the night off right with _?",
+		"pick": 1,
+		"pack": 0
+	},
+	{ "text": "Hey Reddit! I'm _. Ask me anything.", "pick": 1, "pack": 0 },
+	{ "text": "How am I maintaining my relationship status?", "pick": 1, "pack": 0 },
+	{ "text": "How did I lose my virginity?", "pick": 1, "pack": 0 },
+	{
+		"text": "I do not know with what weapons World War III will be fought, but World War IV will be fought with _.",
+		"pick": 1,
+		"pack": 0
+	},
+	{ "text": "I drink to forget _.", "pick": 1, "pack": 0 },
+	{ "text": "I get by with a little help from _.", "pick": 1, "pack": 0 },
+	{ "text": "I got 99 problems, but _ ain't one.", "pick": 1, "pack": 0 },
+	{ "text": "I know when that hotline bling, that can only mean one thing: _.", "pick": 1, "pack": 0 },
+	{
+		"text": "I learned the hard way that you can't cheer up a grieving friend with _.",
+		"pick": 1,
+		"pack": 0
+	},
+	{ "text": "I never truly understood _ until I encountered _.", "pick": 2, "pack": 0 },
+	{ "text": "I spy with my little eye _.", "pick": 1, "pack": 0 },
+	{ "text": "I wish I hadn't lost the instruction manual for _.", "pick": 1, "pack": 0 },
+	{ "text": "I'm going on a cleanse this week. Nothing but kale juice and _.", "pick": 1, "pack": 0 },
+	{ "text": "I'm Lebron James, and when I'm not slamming dunks, I love _.", "pick": 1, "pack": 0 },
+	{
+		"text": "I'm no doctor, but I'm pretty sure what you're suffering from is called \"_.\"",
+		"pick": 1,
+		"pack": 0
+	},
+	{ "text": "I'm sorry, Professor, but I couldn't complete my homework because of _.", "pick": 1, "pack": 0 },
+	{ "text": "I'm sorry, Sir, but I couldn't complete my homework because of _.", "pick": 1, "pack": 0 },
+	{ "text": "I'm not like the rest of you. I'm too rich and busy for _.", "pick": 1, "pack": 0 },
+	{ "text": "If you can't be with the one you love, love _.", "pick": 1, "pack": 0 },
+	{ "text": "IF you like _, YOU MIGHT BE A REDNECK.", "pick": 1, "pack": 0 },
+	{
+		"text": "In 1,000 years, when paper money is a distant memory, how will we pay for goods and services?",
+		"pick": 1,
+		"pack": 0
+	},
+	{
+		"text": "In 1,000 years, when paper money is but a distant memory, _ will be our currency.",
+		"pick": 1,
+		"pack": 0
+	},
+	{ "text": "In a world ravaged by _ our only solace is _.", "pick": 2, "pack": 0 },
+	{ "text": "In a world ravaged by _, our only solace is _.", "pick": 2, "pack": 0 },
+	{
+		"text": "In an attempt to reach a wider audience, the National Museum of Australia has opened an interactive exhibit on _.",
+		"pick": 1,
+		"pack": 0
+	},
+	{
+		"text": "In an attempt to reach a wider audience, the Smithsonian Museum of Natural History has opened an interactive exhibit on _.",
+		"pick": 1,
+		"pack": 0
+	},
+	{ "text": "In Australia, _ is twice as big and twice as deadly.", "pick": 1, "pack": 0 },
+	{ "text": "In Belmarsh Prison, word is you can trade 200 cigarettes for _.", "pick": 1, "pack": 0 },
+	{
+		"text": "In her latest feature-length film, Tracy Beaker struggles with _ for the first time.",
+		"pick": 1,
+		"pack": 0
+	},
+	{ "text": "In his new self-produced album, Kanye West raps over the sounds of _.", "pick": 1, "pack": 0 },
+	{ "text": "In his new summer comedy, Rob Schneider is _ trapped in the body of _.", "pick": 2, "pack": 0 },
+	{ "text": "In L.A. County Jail, word is you can trade 200 cigarettes for _.", "pick": 1, "pack": 0 },
+	{
+		"text": "In M. Night Shyamalan's new movie, Bruce Willis discovers that _ had really been _ all along.",
+		"pick": 2,
+		"pack": 0
+	},
+	{ "text": "In Michael Jackson's final moments, he thought about _.", "pick": 1, "pack": 0 },
+	{
+		"text": "In Rome, there are whisperings that the Vatican has a secret room devoted to _.",
+		"pick": 1,
+		"pack": 0
+	},
+	{
+		"text": "In the new Disney Channel Original Movie, Hannah Montana struggles with _ for the first time.",
+		"pick": 1,
+		"pack": 0
+	},
+	{ "text": "In the seventh circle of Hell, sinners must endure _ for all eternity.", "pick": 1, "pack": 0 },
+	{ "text": "In your Best-Man speech, I'd talk about when we found ourselves _.", "pick": 1, "pack": 0 },
+	{ "text": "Instead of coal, Father Christmas now gives the bad children _.", "pick": 1, "pack": 0 },
+	{ "text": "Instead of coal, Santa now gives the bad children _.", "pick": 1, "pack": 0 },
+	{ "text": "Introducing the amazing superhero/sidekick duo! It's _ and _!", "pick": 2, "pack": 0 },
+	{ "text": "Introducing X-Treme Baseball! It's like baseball, but with _!", "pick": 1, "pack": 0 },
+	{ "text": "It's a trap!", "pick": 1, "pack": 0 },
+	{ "text": "It's not _ that puts strain on a relationship, it's _.", "pick": 2, "pack": 0 },
+	{ "text": "Just once, I'd like to hear you say \"Thanks, Mom. Thanks for _.\"", "pick": 1, "pack": 0 },
+	{ "text": "Just once, I'd like to hear you say \"Thanks, Mum. Thanks for _.\"", "pick": 1, "pack": 0 },
+	{ "text": "Just saw this upsetting video! Please retweet!! #stop_", "pick": 1, "pack": 0 },
+	{ "text": "Kids, I don't need drugs to get high. I'm high on _.", "pick": 1, "pack": 0 },
+	{
+		"text": "Life for Aboriginal people was forever changed when the white man introduced them to _.",
+		"pick": 1,
+		"pack": 0
+	},
+	{
+		"text": "Life for American Indians was forever changed when the White Man introduced them to _.",
+		"pick": 1,
+		"pack": 0
+	},
+	{ "text": "Life was difficult for cavemen before _.", "pick": 1, "pack": 0 },
+	{ "text": "Lifetime® presents _: the Story of _.", "pick": 2, "pack": 0 },
+	{ "text": "Lifetime® presents \"_: the Story of _.\"", "pick": 2, "pack": 0 },
+	{ "text": "Lovin' you is easy 'cause you're _.", "pick": 1, "pack": 0 },
+	{
+		"text": "Major League Baseball has banned _ for giving players an unfair advantage.",
+		"pick": 1,
+		"pack": 0
+	},
+	{ "text": "Make a haiku.", "pick": 3, "pack": 0 },
+	{ "text": "Mate, do not go in that bathroom. There's _ in there.", "pick": 1, "pack": 0 },
+	{ "text": "Mate, do not go in that toilet. There's _ in there.", "pick": 1, "pack": 0 },
+	{ "text": "Maybe she's born with it. Maybe it's _.", "pick": 1, "pack": 0 },
+	{ "text": "Men's Wearhouse: You're gonna like _. I guarantee it.", "pick": 1, "pack": 0 },
+	{
+		"text": "Military historians remember Alexander the Great for his brilliant use of _ against the Persians.",
+		"pick": 1,
+		"pack": 0
+	},
+	{ "text": "Money can't buy me love, but it can buy me _.", "pick": 1, "pack": 0 },
+	{
+		"text": "Mr. and Mrs. Diaz, we called you in because we're concerned about Cynthia. Are you aware that your daughter is _?",
+		"pick": 1,
+		"pack": 0
+	},
+	{
+		"text": "MTV's new reality show features eight washed-up celebrities living with _.",
+		"pick": 1,
+		"pack": 0
+	},
+	{
+		"text": "My fellow Americans: Before this decade is out, we will have _ on the moon!",
+		"pick": 1,
+		"pack": 0
+	},
+	{ "text": "My mom is so happy when I visit, but I'm only there to be _.", "pick": 1, "pack": 0 },
+	{ "text": "My plan for world domination begins with _.", "pick": 1, "pack": 0 },
+	{ "text": "Next from J.K. Rowling: Harry Potter and the Chamber of _.", "pick": 1, "pack": 0 },
+	{ "text": "Next from J.K. Rowling: Harry Potter and the chamber of _.", "pick": 1, "pack": 0 },
+	{ "text": "Next on ESPN2: The World Series of _.", "pick": 1, "pack": 0 },
+	{ "text": "Next on Eurosport: The World Championship of _.", "pick": 1, "pack": 0 },
+	{ "text": "Next on Nine's Wide World of Sports: The World Championship of _.", "pick": 1, "pack": 0 },
+	{ "text": "Next on Sky Sports: The World Champsion of _.", "pick": 1, "pack": 0 },
+	{ "text": "Next on Sky Sports: The World Champsion of _.", "pick": 1, "pack": 0 },
+	{ "text": "Next on TSN: The World Series of _.", "pick": 1, "pack": 0 },
+	{ "text": "Next up on Channel 4: Ramsay's _ Nightmares.", "pick": 1, "pack": 0 },
+	{
+		"text": "Nobody expects the Spanish Inquisition. Our chief weapons are fear, surprise, and _.",
+		"pick": 1,
+		"pack": 0
+	},
+	{ "text": "Now at the National Museum of Australia: an interactive exhibit on _.", "pick": 1, "pack": 0 },
+	{ "text": "Now at the Natural History Museum: an interactive exhibit on _.", "pick": 1, "pack": 0 },
+	{ "text": "Now at the Royal Ontario Museum: an interactive exhibit on _.", "pick": 1, "pack": 0 },
+	{ "text": "Now at the Smithsonian: an interactive exhibit on _.", "pick": 1, "pack": 0 },
+	{ "text": "O Canada, we stand on guard for _.", "pick": 1, "pack": 0 },
+	{ "text": "Oi! Show us _!", "pick": 1, "pack": 0 },
+	{ "text": "Old MacDonald had _. E-I-E-I-O.", "pick": 1, "pack": 0 },
+	{ "text": "Only you can prevent _.", "pick": 1, "pack": 0 },
+	{ "text": "Penalty! _: that's 5 minutes in the box!", "pick": 1, "pack": 0 },
+	{ "text": "Qantas now prohibits _ on airplanes.", "pick": 1, "pack": 0 },
+	{ "text": "Rumor has it that Vladimir Putin's favorite dish is _ stuffed with _.", "pick": 2, "pack": 0 },
+	{ "text": "Science will never explain _.", "pick": 1, "pack": 0 },
+	{ "text": "Skidamarink a dink a dink, skidamarink a doo, I love _.", "pick": 1, "pack": 0 },
+	{ "text": "Sorry everyone, I just _.", "pick": 1, "pack": 0 },
+	{ "text": "Step 1: _.\nStep 2: _.\nStep 3: Profit.", "pick": 2, "pack": 0 },
+	{
+		"text": "Studies show that lab rats navigate mazes 50% faster after being exposed to _.",
+		"pick": 1,
+		"pack": 0
+	},
+	{ "text": "Thank God for alcohol and _.", "pick": 1, "pack": 0 },
+	{ "text": "That's right, I killed _. How, you ask? _.", "pick": 2, "pack": 0 },
+	{
+		"text": "The blind date was going horribly until we discovered our shared interest in _.",
+		"pick": 1,
+		"pack": 0
+	},
+	{ "text": "The class field trip was completely ruined by _.", "pick": 1, "pack": 0 },
+	{ "text": "The Four Horsemen of the Apocalypse: Pestilence, War, Famine, and _.", "pick": 1, "pack": 0 },
+	{ "text": "The hills are alive with the sound of _.", "pick": 1, "pack": 0 },
+	{ "text": "The neighborhood kid didn't use snow for their snowman, they used _.", "pick": 1, "pack": 0 },
+	{
+		"text": "The new Chevy Tahoe. With the power and space to take _ everywhere you go.",
+		"pick": 1,
+		"pack": 0
+	},
+	{ "text": "The school excursion was completely ruined by _.", "pick": 1, "pack": 0 },
+	{ "text": "The school field trip was completely ruined by _.", "pick": 1, "pack": 0 },
+	{ "text": "The school trip was completely ruined by _.", "pick": 1, "pack": 0 },
+	{
+		"text": "The secret to a lasting marriage is communication, communication, and _.",
+		"pick": 1,
+		"pack": 0
+	},
+	{
+		"text": "The Smithsonian Museum of Natural History has just opened an interactive exhibit on _.",
+		"pick": 1,
+		"pack": 0
+	},
+	{ "text": "The TFL apologizes for the delay in train service due to _.", "pick": 1, "pack": 0 },
+	{ "text": "The theme for next year's Eurovision Song Contest is \"We are _.\"", "pick": 1, "pack": 0 },
+	{ "text": "The U.S. has begun airdropping _ to the children of Afghanistan.", "pick": 1, "pack": 0 },
+	{
+		"text": "They said we were crazy. They said we couldn't put _ inside of _. They were wrong.",
+		"pick": 2,
+		"pack": 0
+	},
+	{
+		"text": "This is the way the world ends\nThis is the way the world ends\nNot with a bang but with _.",
+		"pick": 1,
+		"pack": 0
+	},
+	{ "text": "This is your pilot speaking. Please prepare for _.", "pick": 1, "pack": 0 },
+	{
+		"text": "This season at Steppenwolf, Samuel Beckett's classic existential play: Waitng for _.",
+		"pick": 1,
+		"pack": 0
+	},
+	{
+		"text": "This season at the old Vic, Samuel Beckett's classic existential play: Waitng for _.",
+		"pick": 1,
+		"pack": 0
+	},
+	{
+		"text": "This season at the Princess of Wales Theatre, Samuel Beckett's classic existential play: Waiting for _.",
+		"pick": 1,
+		"pack": 0
+	},
+	{
+		"text": "This season at the Sydney Opera House, Samuel Beckett's classic existential play: Waiting for _.",
+		"pick": 1,
+		"pack": 0
+	},
+	{ "text": "Today on Jerry Springer: \"Help! My son is _!\"", "pick": 1, "pack": 0 },
+	{ "text": "Today on Maury: \"Help! My son is _!\"", "pick": 1, "pack": 0 },
+	{ "text": "Today on The Jeremy Kyle Show: \"Help! My son is _!\"", "pick": 1, "pack": 0 },
+	{ "text": "Tonight's top story: What you don't know about _ could kill you.", "pick": 1, "pack": 0 },
+	{ "text": "TSA guidelines now prohibit _ on airplanes.", "pick": 1, "pack": 0 },
+	{ "text": "Turns out that _-Man was neither the hero we needed nor wanted.", "pick": 1, "pack": 0 },
+	{
+		"text": "Uh, hey guys, I know this was my idea, but I'm having serious doubts about _.",
+		"pick": 1,
+		"pack": 0
+	},
+	{ "text": "UKIP: Putting _ First!", "pick": 1, "pack": 0 },
+	{ "text": "War! What is it good for?", "pick": 1, "pack": 0 },
+	{ "text": "Well if you'll excuse me, gentlemen, I have a date with _.", "pick": 1, "pack": 0 },
+	{ "text": "What am I giving up for Lent?", "pick": 1, "pack": 0 },
+	{ "text": "What are my parents hiding from me?", "pick": 1, "pack": 0 },
+	{ "text": "What are school administrators using to curb rampant teenage pregnancy?", "pick": 1, "pack": 0 },
+	{ "text": "What broke up the original Wiggles?", "pick": 1, "pack": 0 },
+	{ "text": "What brought the orgy to a grinding halt?", "pick": 1, "pack": 0 },
+	{ "text": "What did I bring back from Amsterdam?", "pick": 1, "pack": 0 },
+	{ "text": "What did I bring back from Bali?", "pick": 1, "pack": 0 },
+	{ "text": "What did I bring back from Mexico?", "pick": 1, "pack": 0 },
+	{ "text": "What did the US airdrop to the children of Afghanistan?", "pick": 1, "pack": 0 },
+	{ "text": "What did Vin Diesel eat for dinner?", "pick": 1, "pack": 0 },
+	{ "text": "What do old people smell like?", "pick": 1, "pack": 0 },
+	{ "text": "What does Dick Cheney prefer?", "pick": 1, "pack": 0 },
+	{ "text": "What don't you want to find in your Chinese food?", "pick": 1, "pack": 0 },
+	{ "text": "What don't you want to find in your doner kebab?", "pick": 1, "pack": 0 },
+	{ "text": "What don't you want to find in your Kung Pao chicken?", "pick": 1, "pack": 0 },
+	{ "text": "What don't you want to find in your Mongolian beef?", "pick": 1, "pack": 0 },
+	{ "text": "What ended my last relationship?", "pick": 1, "pack": 0 },
+	{ "text": "What gets better with age?", "pick": 1, "pack": 0 },
+	{ "text": "What gives me uncontrollable gas?", "pick": 1, "pack": 0 },
+	{ "text": "What has been making life difficult at the nudist colony?", "pick": 1, "pack": 0 },
+	{ "text": "What helps Barack Obama unwind?", "pick": 1, "pack": 0 },
+	{ "text": "What helps Obama unwind?", "pick": 1, "pack": 0 },
+	{ "text": "What is Batman's guilty pleasure?", "pick": 1, "pack": 0 },
+	{ "text": "What is George W. Bush thinking about right now?", "pick": 1, "pack": 0 },
+	{ "text": "What kept Margaret Thatcher busy in her waning years?", "pick": 1, "pack": 0 },
+	{ "text": "What left this stain on my couch?", "pick": 1, "pack": 0 },
+	{ "text": "What made my first kiss so awkward?", "pick": 1, "pack": 0 },
+	{ "text": "What makes life worth living?", "pick": 1, "pack": 0 },
+	{ "text": "What makes me a true blue Aussie?", "pick": 1, "pack": 0 },
+	{ "text": "What never fails to liven up the party?", "pick": 1, "pack": 0 },
+	{ "text": "What will always get you laid?", "pick": 1, "pack": 0 },
+	{
+		"text": "What will I bring back in time to convince people that I am a powerful wizard?",
+		"pick": 1,
+		"pack": 0
+	},
+	{ "text": "What would grandma find disturbing, yet oddly charming?", "pick": 1, "pack": 0 },
+	{ "text": "What's a girl's best friend?", "pick": 1, "pack": 0 },
+	{ "text": "What's my anti-drug?", "pick": 1, "pack": 0 },
+	{ "text": "What's my secret power?", "pick": 1, "pack": 0 },
+	{
+		"text": "What's Teach for America using to inspire inner city students to succeed?",
+		"pick": 1,
+		"pack": 0
+	},
+	{ "text": "What's that smell?", "pick": 1, "pack": 0 },
+	{ "text": "What's that sound?", "pick": 1, "pack": 0 },
+	{
+		"text": "What's the Canadian government using to inspire rural students to succeed?",
+		"pick": 1,
+		"pack": 0
+	},
+	{ "text": "What's the crustiest?", "pick": 1, "pack": 0 },
+	{ "text": "What's the most emo?", "pick": 1, "pack": 0 },
+	{ "text": "What's the new fad diet?", "pick": 1, "pack": 0 },
+	{ "text": "What's the next Happy Meal® toy?", "pick": 1, "pack": 0 },
+	{ "text": "What's the next superhero/sidekick duo?", "pick": 1, "pack": 0 },
+	{ "text": "What's there a ton of in heaven?", "pick": 1, "pack": 0 },
+	{ "text": "What's there a tonne of in heaven?", "pick": 1, "pack": 0 },
+	{ "text": "When all else fails, I can always masturbate to _.", "pick": 1, "pack": 0 },
+	{
+		"text": "When I am a billionare, I shall erect a 20-meter statue to commemorate _.",
+		"pick": 1,
+		"pack": 0
+	},
+	{
+		"text": "When I am a billionare, I shall erect a 20-metre statue to commemorate _.",
+		"pick": 1,
+		"pack": 0
+	},
+	{
+		"text": "When I am a billionare, I shall erect a 50-foot statue to commemorate _.",
+		"pick": 1,
+		"pack": 0
+	},
+	{
+		"text": "When I am President of the United States, I will create the Department of _.",
+		"pick": 1,
+		"pack": 0
+	},
+	{ "text": "When I am President, I will create the Department of _.", "pick": 1, "pack": 0 },
+	{ "text": "When I am Prime Minister of Canada, I will create the Department of _.", "pick": 1, "pack": 0 },
+	{ "text": "When I am Prime Minister of Canada, I will create the Ministry of _.", "pick": 1, "pack": 0 },
+	{ "text": "When I am Prime Minister, I will create the Department of _.", "pick": 1, "pack": 0 },
+	{ "text": "When I am Prime Minister, I will create the Department of _.", "pick": 1, "pack": 0 },
+	{ "text": "When I am Prime Minister, I will create the Ministry of _.", "pick": 1, "pack": 0 },
+	{ "text": "When I pooped, what came out of my butt?", "pick": 1, "pack": 0 },
+	{ "text": "When I was tripping on acid, _ turned into _.", "pick": 2, "pack": 0 },
+	{ "text": "When I'm pooping, I like to think about _.", "pick": 1, "pack": 0 },
+	{ "text": "When Pharaoh remained unmoved, Moses called down a Plague of _.", "pick": 1, "pack": 0 },
+	{ "text": "When you get right down to it, _ is just _.", "pick": 2, "pack": 0 },
+	{
+		"text": "While the United States raced the Soviet Union to the moon, the Mexican government funneled millions of pesos into research on _.",
+		"pick": 1,
+		"pack": 0
+	},
+	{ "text": "White people like _.", "pick": 1, "pack": 0 },
+	{ "text": "Who stole the cookies from the cookie jar?", "pick": 1, "pack": 0 },
+	{ "text": "Why am I sticky?", "pick": 1, "pack": 0 },
+	{ "text": "Why can't I sleep at night?", "pick": 1, "pack": 0 },
+	{ "text": "Why do I hurt all over?", "pick": 1, "pack": 0 },
+	{ "text": "With enough time and pressure, _ will turn into _.", "pick": 2, "pack": 0 },
+	{
+		"text": "Your security clearance has been suspended beause of your shameful past involving _.",
+		"pick": 1,
+		"pack": 0
+	}
+]
