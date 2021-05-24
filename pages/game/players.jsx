@@ -1,19 +1,46 @@
-import { Box, Divider, Heading, Flex, VStack, HStack, Spacer } from "@chakra-ui/layout";
-import { TagLeftIcon } from "@chakra-ui/tag";
+import { Box, Heading, VStack, HStack, Spacer } from "@chakra-ui/layout";
+import { useEffect, useState } from "react";
+import { CAH_PLAYER_ID, CAH_ROOM_CODE } from "../../utils/tokenNames";
+import { db } from "../../utils/_firebase";
 
-const Players = ({ players, czar }) => {
+const Players = ({ czar, setPlayerIDs }) => {
+	const [players, setPlayers] = useState([]);
+
+	useEffect(() => {
+		const roomCode = sessionStorage.getItem(CAH_ROOM_CODE);
+		const path = `rooms/${roomCode}/players`;
+		db.ref(path).on("value", (snap) => {
+			if (snap.exists()) {
+				const _players = Object.entries(snap.val());
+				setPlayers(_players);
+				setPlayerIDs(_players.map(([key]) => key));
+			}
+		});
+		db.ref(`${path}/${sessionStorage.getItem(CAH_PLAYER_ID)}`)
+			.onDisconnect()
+			.remove();
+		return () => {
+			db.ref(path).off("value");
+		};
+	}, []);
 	return (
-		<VStack overflowY="auto" w="100%" align="flex-start">
+		<VStack overflowY="auto" w="100%" h="64" align="flex-start">
 			<Heading size="md">Leader Board</Heading>
 
-			{Object.entries(players)
+			{players
 				.sort(([, a], [, b]) => b.points - a.points)
-				.map(([name, { points }], i) => (
-					<Box w="100%" h="12" p="4" bg={czar === name ? "whiteAlpha.200" : "whiteAlpha.100"} key={i}>
+				.map(([key, { name, points }]) => (
+					<Box
+						w="100%"
+						h="12"
+						p="4"
+						bg={czar === key ? "whiteAlpha.500" : "whiteAlpha.100"}
+						boxShadow={czar === key ? "xl" : "none"}
+						key={key}>
 						<HStack>
 							<Heading size="sm">
 								{name}
-								{czar === name ? " (Czar)" : ""}
+								{czar === key ? " (Czar)" : ""}
 							</Heading>
 							<Spacer />
 							<Heading size="sm">{points}</Heading>

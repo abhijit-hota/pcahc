@@ -1,11 +1,12 @@
 import { useState } from "react";
-import Head from "next/head";
 import { useRouter } from "next/router";
+import { v4 as uuid } from "uuid";
 
-import { Box, Button, Container, HStack, Input, Spacer, VStack, Divider } from "@chakra-ui/react";
+import { Box, Button, Container, HStack, Input, VStack, Divider } from "@chakra-ui/react";
 import { generateRoomCode } from "../utils/generateRoomCode";
-import rooms from "../utils/_firebase";
+import { db } from "../utils/_firebase";
 import { getRandomWhiteCards, getRandomBlackCard } from "../utils/getRandomCard";
+import { CAH_PLAYER_ID, CAH_ROOM_CODE } from "../utils/tokenNames";
 
 export default function Home() {
 	const [name, setName] = useState("");
@@ -13,26 +14,30 @@ export default function Home() {
 
 	const router = useRouter();
 
+	const handleSuccess = (id, code = roomCode) => {
+		sessionStorage.setItem(CAH_ROOM_CODE, code);
+		sessionStorage.setItem(CAH_PLAYER_ID, id);
+		router.push(`/game/${code}`);
+	};
 	const handleRoomCreate = async () => {
-		const { letters, words } = generateRoomCode();
+		const { letters } = generateRoomCode();
 		const code = letters.join("");
-		const doc = await rooms.doc(code).get();
+		const roomExists = (await db.ref(`rooms/${code}`).once("value")).exists();
 
-		if (!doc.exists) {
+		if (!roomExists) {
 			try {
-				await rooms.doc(code).set({
+				const userID = uuid();
+
+				await db.ref(`rooms/${code}`).set({
 					round: {
-						chosen: { nickname: "", index: -1 },
 						whiteCards: [],
-						czar: name,
+						czar: userID,
 						blackCard: getRandomBlackCard(),
 					},
-					players: { [name]: { points: 0, cards: getRandomWhiteCards(10) } },
-					creator: name,
+					players: { [userID]: { name, points: 0, cards: getRandomWhiteCards(10) } },
+					creator: userID,
 				});
-				localStorage.setItem("CAHroomCode", code);
-				localStorage.setItem("CAHName", name);
-				router.push(`/game/${code}`);
+				handleSuccess(userID, code);
 			} catch (error) {
 				console.log(error);
 			}
@@ -42,24 +47,23 @@ export default function Home() {
 	};
 
 	const handleRoomJoin = async () => {
-		const room = await rooms.doc(roomCode).get();
-		if (room.exists) {
-			console.log(room.data());
+		const roomExists = (await db.ref(`rooms/${roomCode}`).once("value")).exists();
+
+		if (roomExists) {
 			try {
-				await rooms.doc(roomCode).update({
-					[`players.${name}`]: {
-						cards: getRandomWhiteCards(),
-						points: 0,
-					},
+				const userID = uuid();
+
+				await db.ref(`rooms/${roomCode}/players/${userID}`).set({
+					name,
+					cards: getRandomWhiteCards(),
+					points: 0,
 				});
-				localStorage.setItem("CAHroomCode", roomCode);
-				localStorage.setItem("CAHName", name);
-				router.push(`/game/${roomCode}`);
+				handleSuccess(userID);
 			} catch (err) {
 				console.log(err);
 			}
 		} else {
-			console.log(room.data());
+			alert("This room doesn't exist");
 		}
 	};
 
