@@ -13,5 +13,4 @@ if (firebase.apps.length === 0) {
 	};
 	firebase.initializeApp(firebaseConfig);
 }
-export const rooms = firebase.firestore().collection("rooms");
 export const db = firebase.database();
