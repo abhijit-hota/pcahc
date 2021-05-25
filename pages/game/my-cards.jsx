@@ -26,7 +26,7 @@ const MyCards = ({ isTurn }) => {
 		const roomCode = sessionStorage.getItem(CAH_ROOM_CODE);
 		const userID = sessionStorage.getItem(CAH_PLAYER_ID);
 
-		await db.ref(`rooms/${roomCode}/round/whiteCards`).push({ player: userID, index });
+		await db.ref(`rooms/${roomCode}/round/whiteCards/${userID}`).set(index);
 
 		const _path = `rooms/${roomCode}/players/${userID}/cards`;
 		const newCards = cards.filter((val) => val !== index);

@@ -21,18 +21,17 @@ const PlayedCards = ({ czar, playerIDs, setIsTurnLeft }) => {
 		const roomCode = sessionStorage.getItem(CAH_ROOM_CODE);
 		const playerID = sessionStorage.getItem(CAH_PLAYER_ID);
 		const path = `rooms/${roomCode}/round/whiteCards`;
+
 		db.ref(path).on("value", (snap) => {
 			if (snap.exists()) {
-				const playedCards = Object.values(snap.val());
+				const playedCards = Object.entries(snap.val());
 				setCards(playedCards);
-				setIsTurnLeft(playedCards.every(({ player }) => player !== playerID));
+				setIsTurnLeft(playedCards.every(([player]) => player !== playerID));
 			} else {
 				setCards([]);
 			}
 		});
-		db.ref(path)
-			.onDisconnect()
-			.set(cards.filter(({ player }) => player !== playerID));
+
 		return () => {
 			db.ref(path).off("value");
 		};
@@ -49,10 +48,9 @@ const PlayedCards = ({ czar, playerIDs, setIsTurnLeft }) => {
 				},
 			});
 			setTimeout(async () => {
-				console.log("sdsd");
 				await db.ref(`${basePath}/round`).update({
 					blackCard: getRandomBlackCard(),
-					whiteCards: [],
+					whiteCards: {},
 					czar: getNextCzar(),
 					chosen: "",
 				});
@@ -63,7 +61,7 @@ const PlayedCards = ({ czar, playerIDs, setIsTurnLeft }) => {
 	};
 	return (
 		<HStack w="100%" overflowX="auto">
-			{cards.map(({ index, player }) => {
+			{cards.map(([player, index]) => {
 				const isTurn = czar === sessionStorage.getItem(CAH_PLAYER_ID);
 				return (
 					<MotionBox

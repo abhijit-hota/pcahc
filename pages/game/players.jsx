@@ -1,6 +1,6 @@
 import { Box, Heading, VStack, HStack, Spacer } from "@chakra-ui/layout";
 import { useEffect, useState } from "react";
-import { CAH_PLAYER_ID, CAH_ROOM_CODE } from "../../utils/tokenNames";
+import { CAH_ROOM_CODE } from "../../utils/tokenNames";
 import { db } from "../../utils/_firebase";
 
 const Players = ({ czar, setPlayerIDs }) => {
@@ -16,9 +16,7 @@ const Players = ({ czar, setPlayerIDs }) => {
 				setPlayerIDs(_players.map(([key]) => key));
 			}
 		});
-		db.ref(`${path}/${sessionStorage.getItem(CAH_PLAYER_ID)}`)
-			.onDisconnect()
-			.remove();
+
 		return () => {
 			db.ref(path).off("value");
 		};
