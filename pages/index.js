@@ -1,8 +1,21 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { v4 as uuid } from "uuid";
-
-import { Box, Button, Container, HStack, Input, VStack, Divider } from "@chakra-ui/react";
+import Image from "next/image";
+import {
+	Box,
+	Button,
+	Container,
+	Input,
+	VStack,
+	Divider,
+	AspectRatio,
+	useColorModeValue,
+	Heading,
+	InputGroup,
+	InputRightAddon,
+	Text,
+} from "@chakra-ui/react";
 import { generateRoomCode } from "../utils/generateRoomCode";
 import { db } from "../utils/_firebase";
 import { getRandomWhiteCards, getRandomBlackCard } from "../utils/getRandomCard";
@@ -11,7 +24,14 @@ import { CAH_PLAYER_ID, CAH_ROOM_CODE } from "../utils/tokenNames";
 export default function Home() {
 	const [name, setName] = useState("");
 	const [roomCode, setRoomCode] = useState("");
+	const [loading, setLoading] = useState({ joining: false, creating: false });
+	const [isRoomCodeInvalid, setIsRoomCodeInvalid] = useState(false);
+	const [isNameInvalid, setIsNameInvalid] = useState(false);
 
+	const { boxBg, avatarPlaceholder } = useColorModeValue(
+		{ boxBg: "#fefefe", avatarPlaceholder: "#222222" },
+		{ boxBg: "#222222", avatarPlaceholder: "#fefefe" }
+	);
 	const router = useRouter();
 
 	const handleSuccess = (id, code = roomCode) => {
@@ -20,6 +40,13 @@ export default function Home() {
 		router.push(`/game/${code}`);
 	};
 	const handleRoomCreate = async () => {
+		const isNameInvalid = !/^[\w\d\s]{1,12}$/.test(name);
+		if (isNameInvalid) {
+			setIsNameInvalid(isNameInvalid);
+			return false;
+		}
+
+		setLoading({ joining: false, creating: true });
 		const { letters } = generateRoomCode();
 		const code = letters.join("");
 		const roomExists = (await db.ref(`rooms/${code}`).once("value")).exists();
@@ -40,6 +67,8 @@ export default function Home() {
 				handleSuccess(userID, code);
 			} catch (error) {
 				console.log(error);
+			} finally {
+				setLoading({ joining: false, creating: false });
 			}
 		} else {
 			await handleRoomCreate();
@@ -47,8 +76,15 @@ export default function Home() {
 	};
 
 	const handleRoomJoin = async () => {
+		const isNameInvalid = !/^[\w\d\s]{1,12}$/.test(name);
+		const isCodeInvalid = !/^[A-Z]{6}$/.test(roomCode);
+		if (isCodeInvalid || isNameInvalid) {
+			setIsRoomCodeInvalid(isCodeInvalid);
+			setIsNameInvalid(isNameInvalid);
+			return false;
+		}
+		setLoading({ joining: true, creating: false });
 		const roomExists = (await db.ref(`rooms/${roomCode}`).once("value")).exists();
-
 		if (roomExists) {
 			try {
 				const userID = uuid();
@@ -63,36 +99,97 @@ export default function Home() {
 				console.log(err);
 			}
 		} else {
-			alert("This room doesn't exist");
+			setIsRoomCodeInvalid(true);
 		}
+		setLoading({ joining: false, creating: false });
 	};
 
 	return (
-		<Container centerContent>
-			<Box shadow="2xl" p="4" rounded="lg" bg="teal.900" w="md">
+		<Container centerContent pt="12">
+			<Box shadow="2xl" p="4" rounded="lg" bg={boxBg} maxW="md" minW="sm">
 				<VStack>
-					<Input placeholder="Enter name" value={name} onChange={({ target: { value } }) => setName(value)} />
-					<HStack h="50px">
-						<VStack>
-							<Button
-								disabled={name === "" || name.length > 12}
-								variant="solid"
-								onClick={handleRoomCreate}>
-								Create Room
-							</Button>
-						</VStack>
-						<Divider orientation="vertical" />
+					<AspectRatio ratio={1 / 1} w="32" m="12" mb="6">
+						{name === "" ? (
+							<Box w="32" h="32" bg={avatarPlaceholder} color={boxBg} rounded="full">
+								<Heading>CAH</Heading>
+							</Box>
+						) : (
+							<Image
+								className="cah-avatar"
+								loader={({ src }) => `https://avatar.tobi.sh/${src}?size=60`}
+								src={name}
+								layout="fill"
+							/>
+						)}
+					</AspectRatio>
+					<Input
+						size="lg"
+						name="name"
+						placeholder="Enter username"
+						value={name}
+						onChange={({ target: { value } }) => {
+							if (isNameInvalid) {
+								setIsNameInvalid(false);
+							}
+							setName(value);
+						}}
+						isInvalid={isNameInvalid}
+					/>
+
+					{isNameInvalid && (
+						<Text color="red.300" alignSelf="flex-start">
+							Type a name ffs (12 characters max)
+						</Text>
+					)}
+					<Divider sx={{ margin: "1rem 0 1rem 0 !important" }} />
+					<InputGroup size="lg" w="full" sx={{ margin: "0 !important" }}>
 						<Input
+							borderRight="none"
+							size="lg"
 							placeholder="Room code"
 							value={roomCode}
-							onChange={({ target: { value } }) => setRoomCode(value)}></Input>
-						<Button
-							disabled={name === "" || name.length > 12 || roomCode.length !== 6}
-							variant="outline"
-							onClick={handleRoomJoin}>
-							Join
-						</Button>
-					</HStack>
+							onChange={({ target: { value } }) => {
+								if (isRoomCodeInvalid) {
+									setIsRoomCodeInvalid(false);
+								}
+								setRoomCode(value.toUpperCase());
+							}}
+							isInvalid={isRoomCodeInvalid}
+							onKeyDown={({ key }) => {
+								if (key === "Enter") {
+									handleRoomJoin();
+								}
+							}}
+						/>
+						<InputRightAddon p="0" border="none">
+							<Button
+								variant="ghost"
+								size="lg"
+								w="full"
+								borderLeftRadius="none"
+								onClick={handleRoomJoin}
+								isLoading={loading.joining}>
+								Join Room
+							</Button>
+						</InputRightAddon>
+					</InputGroup>
+					{isRoomCodeInvalid && (
+						<Text color="red.300" alignSelf="flex-start">
+							Where&apos;d you get that code from, dumbass?
+						</Text>
+					)}
+					<Heading fontWeight="thin" size="md" p="3">
+						OR
+					</Heading>
+					<Button
+						w="full"
+						size="lg"
+						type="submit"
+						isLoading={loading.creating}
+						variant="solid"
+						onClick={handleRoomCreate}>
+						Create Room
+					</Button>
 				</VStack>
 			</Box>
 		</Container>
