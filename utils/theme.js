@@ -11,10 +11,16 @@ const theme = extendTheme({
 	styles: {
 		global: (props) => ({
 			body: {
-				// color: mode("gray.800", "whiteAlpha.900")(props),
 				bg: mode("gray.200", "blackAlpha.800")(props),
 			},
 		}),
+	},
+	components: {
+		Modal: {
+			baseStyle: (props) => ({
+				dialog: { bg: props.colorMode === "dark" ? "#222222" : "gray.200" },
+			}),
+		},
 	},
 });
 

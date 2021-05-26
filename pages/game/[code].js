@@ -68,7 +68,7 @@ export default function Game() {
 	return (
 		<Container centerContent w="full" h="100%">
 			<Head>
-				<title>Game {roomCode} </title>
+				<title>CAH Online: Room {roomCode} </title>
 			</Head>
 			{czar === "" ? (
 				"Loading"
@@ -81,7 +81,7 @@ export default function Game() {
 					h={["82vh", "87vh"]}
 					p="4"
 					w={["100vw", "85vw"]}>
-					<Stack direction={["row", "column"]} w="full">
+					<Stack direction={["row", "column"]} w={["100%", "unset"]}>
 						<BlackCard />
 						<Spacer />
 						<Players czar={czar} setPlayerIDs={setPlayerIDs} />

@@ -31,6 +31,7 @@ const Players = ({ czar, setPlayerIDs }) => {
 				.map(([key, { name, points }]) => (
 					<Box
 						w="100%"
+						maxW={["100%", "64"]}
 						h="12"
 						d="flex"
 						pl="2"
@@ -41,7 +42,11 @@ const Players = ({ czar, setPlayerIDs }) => {
 						key={key}>
 						<Image
 							className="cah-avatar"
-							loader={({ src }) => `https://avatar.tobi.sh/${src}?size=32`}
+							loader={({ src }) =>
+								`https://avatar.tobi.sh/${src}.svg?size=32${
+									sessionStorage[CAH_PLAYER_ID] === key ? "&text=You" : ""
+								}`
+							}
 							src={name}
 							width="32"
 							height="32"
@@ -49,7 +54,6 @@ const Players = ({ czar, setPlayerIDs }) => {
 						<Heading size="sm" ml="2">
 							{name}
 							{czar === key ? " (Czar)" : ""}
-							{sessionStorage[CAH_PLAYER_ID] === key ? " (You)" : ""}
 						</Heading>
 						<Spacer />
 						<Heading size="sm">{points}</Heading>
