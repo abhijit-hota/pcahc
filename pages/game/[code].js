@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
 
-import { Box, Container, Divider, Spacer, Stack, useBreakpointValue, VStack } from "@chakra-ui/react";
+import { Box, Container, Divider, Spacer, Stack, useBreakpointValue, useToast, VStack } from "@chakra-ui/react";
 import BlackCard from "./black-card";
 import Players from "./players";
 
@@ -12,7 +12,7 @@ import { CAH_PLAYER_ID, CAH_ROOM_CODE } from "../../utils/tokenNames";
 
 export default function Game() {
 	const [czar, setCzar] = useState("");
-	const [playerIDs, setPlayerIDs] = useState([1, 2, 3]);
+	const [playerIDs, setPlayerIDs] = useState([]);
 	const [currentUserID, setCurrentUserID] = useState("");
 	const [isTurnLeft, setIsTurnLeft] = useState(true);
 
@@ -20,16 +20,17 @@ export default function Game() {
 		{ orientation: "horizontal", mt: "4", mb: "4" },
 		{ orientation: "vertical", ml: "4", mr: "4" },
 	]);
+	const toast = useToast();
 
 	const [roomCode, setRoomCode] = useState("");
 	const getNextCzar = () => {
-		const currentCzar = playerIDs.indexOf(czar);
+		const currentCzar = playerIDs.findIndex(({ key }) => key === czar);
 		const nextCzarIndex = currentCzar + 1 >= playerIDs.length ? 0 : currentCzar + 1;
-		return playerIDs[nextCzarIndex];
+		return playerIDs[nextCzarIndex].key;
 	};
 	useEffect(() => {
-		setRoomCode(sessionStorage.getItem(CAH_ROOM_CODE));
-		setCurrentUserID(sessionStorage.getItem(CAH_PLAYER_ID));
+		setRoomCode(sessionStorage[CAH_ROOM_CODE]);
+		setCurrentUserID(sessionStorage[CAH_PLAYER_ID]);
 	}, []);
 
 	useEffect(() => {
@@ -37,7 +38,17 @@ export default function Game() {
 			const path = `rooms/${roomCode}/round/czar`;
 			db.ref(path).on("value", (snap) => {
 				if (snap.exists()) {
-					setCzar(snap.val());
+					const newCzar = snap.val();
+					if (playerIDs.length > 0) {
+						toast({
+							duration: 2000,
+							position: "top",
+							title: `${playerIDs.find(({ key }) => key === newCzar).name} is now the Czar`,
+							status: "info",
+							isClosable: false,
+						});
+					}
+					setCzar(newCzar);
 				}
 			});
 			return () => {
@@ -64,7 +75,7 @@ export default function Game() {
 			db.ref(roomPath).onDisconnect().remove();
 		}
 	}, [playerIDs]);
-
+	
 	return (
 		<Container centerContent w="full" h="100%">
 			<Head>

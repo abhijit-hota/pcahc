@@ -91,7 +91,7 @@ export default function Home() {
 
 				await db.ref(`rooms/${roomCode}/players/${userID}`).set({
 					name,
-					cards: getRandomWhiteCards(),
+					cards: getRandomWhiteCards(1),
 					points: 0,
 				});
 				handleSuccess(userID);

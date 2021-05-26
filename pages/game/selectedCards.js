@@ -7,16 +7,18 @@ import { getRandomBlackCard } from "../../utils/getRandomCard";
 
 import firebase from "firebase/app";
 import { motion } from "framer-motion";
+import { useToast } from "@chakra-ui/toast";
 const MotionBox = motion(Box);
 
 const PlayedCards = ({ czar, playerIDs, setIsTurnLeft }) => {
 	const [cards, setCards] = useState([]);
 	const cardsRowRef = useRef(null);
+	const toast = useToast();
 
 	const getNextCzar = () => {
-		const currentCzar = playerIDs.indexOf(czar);
+		const currentCzar = playerIDs.findIndex(({ key }) => key === czar);
 		const nextCzarIndex = currentCzar + 1 >= playerIDs.length ? 0 : currentCzar + 1;
-		return playerIDs[nextCzarIndex];
+		return playerIDs[nextCzarIndex].key;
 	};
 
 	useEffect(() => {
@@ -33,11 +35,32 @@ const PlayedCards = ({ czar, playerIDs, setIsTurnLeft }) => {
 				setCards([]);
 			}
 		});
-
+		if (playerIDs.length > 0) {
+			db.ref(`rooms/${roomCode}/round/chosen`).on("value", (snap) => {
+				const chosen = snap.val();
+				if (chosen && snap.exists() && czar !== playerID) {
+					try {
+						const title = `${
+							playerIDs.find(({ key }) => key === chosen)?.name
+						}'s card was selected by the Czar!`;
+						toast({
+							duration: 2500,
+							position: "top",
+							title,
+							status: "info",
+							isClosable: false,
+						});
+					} catch (error) {
+						console.log(error);
+					}
+				}
+			});
+		}
 		return () => {
+			db.ref(`rooms/${roomCode}/round/chosen`).off("value");
 			db.ref(path).off("value");
 		};
-	}, []);
+	}, [playerIDs]);
 
 	const handleCzarSelect = async (player) => {
 		const basePath = `rooms/${sessionStorage.getItem(CAH_ROOM_CODE)}`;
@@ -50,11 +73,10 @@ const PlayedCards = ({ czar, playerIDs, setIsTurnLeft }) => {
 				},
 			});
 			setTimeout(async () => {
-				await db.ref(`${basePath}/round`).update({
+				await db.ref(`${basePath}/round`).set({
 					blackCard: getRandomBlackCard(),
 					whiteCards: {},
 					czar: getNextCzar(),
-					chosen: "",
 				});
 			}, 3000);
 		} catch (error) {
@@ -75,7 +97,6 @@ const PlayedCards = ({ czar, playerIDs, setIsTurnLeft }) => {
 				const isTurn = czar === sessionStorage.getItem(CAH_PLAYER_ID);
 				return (
 					<MotionBox
-						whileHover={{ scale: 1.2 }}
 						bg="white"
 						minW={["40", "56"]}
 						maxW={["40", "56"]}

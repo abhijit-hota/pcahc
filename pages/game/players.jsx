@@ -14,7 +14,7 @@ const Players = ({ czar, setPlayerIDs }) => {
 			if (snap.exists()) {
 				const _players = Object.entries(snap.val());
 				setPlayers(_players);
-				setPlayerIDs(_players.map(([key]) => key));
+				setPlayerIDs(_players.map(([key, { name }]) => ({ key, name })));
 			}
 		});
 

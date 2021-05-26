@@ -46,6 +46,8 @@ const Header = () => {
 						onClick={() => {
 							onCopy();
 							toast({
+								duration: 2000,
+								position: "top",
 								title: "Room Code copied",
 								status: "success",
 								isClosable: true,

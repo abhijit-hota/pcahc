@@ -1,6 +1,7 @@
 import { Box, HStack, Heading } from "@chakra-ui/layout";
 import { useEffect, useRef, useState } from "react";
 import whites from "../../public/white-cards.json";
+import { getRandomWhiteCards } from "../../utils/getRandomCard";
 import { CAH_PLAYER_ID, CAH_ROOM_CODE } from "../../utils/tokenNames";
 import { db } from "../../utils/_firebase";
 
@@ -30,7 +31,7 @@ const MyCards = ({ isTurn }) => {
 
 		const _path = `rooms/${roomCode}/players/${userID}/cards`;
 		const newCards = cards.filter((val) => val !== index);
-		await db.ref(_path).set(newCards);
+		await db.ref(_path).set(newCards.length > 0 ? newCards : getRandomWhiteCards());
 	};
 
 	return (
