@@ -8,3 +8,4 @@
 - Unique cards validation
 - Handing multiple sets
 - RTDB Security Rules
+- Shift `firebaseConfig.js` to `.env` vars
