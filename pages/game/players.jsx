@@ -1,6 +1,7 @@
-import { Box, Heading, VStack, HStack, Spacer } from "@chakra-ui/layout";
+import { Box, Heading, VStack, Spacer } from "@chakra-ui/layout";
+import Image from "next/image";
 import { useEffect, useState } from "react";
-import { CAH_ROOM_CODE } from "../../utils/tokenNames";
+import { CAH_PLAYER_ID, CAH_ROOM_CODE } from "../../utils/tokenNames";
 import { db } from "../../utils/_firebase";
 
 const Players = ({ czar, setPlayerIDs }) => {
@@ -31,18 +32,27 @@ const Players = ({ czar, setPlayerIDs }) => {
 					<Box
 						w="100%"
 						h="12"
-						p="4"
+						d="flex"
+						pl="2"
+						pr="2"
+						alignItems="center"
 						bg={czar === key ? "whiteAlpha.500" : "whiteAlpha.100"}
 						boxShadow={czar === key ? "xl" : "none"}
 						key={key}>
-						<HStack>
-							<Heading size="sm">
-								{name}
-								{czar === key ? " (Czar)" : ""}
-							</Heading>
-							<Spacer />
-							<Heading size="sm">{points}</Heading>
-						</HStack>
+						<Image
+							className="cah-avatar"
+							loader={({ src }) => `https://avatar.tobi.sh/${src}?size=32`}
+							src={name}
+							width="32"
+							height="32"
+						/>
+						<Heading size="sm" ml="2">
+							{name}
+							{czar === key ? " (Czar)" : ""}
+							{sessionStorage[CAH_PLAYER_ID] === key ? " (You)" : ""}
+						</Heading>
+						<Spacer />
+						<Heading size="sm">{points}</Heading>
 					</Box>
 				))}
 		</VStack>

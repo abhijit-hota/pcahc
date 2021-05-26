@@ -10,3 +10,17 @@ body {
 .cah-avatar {
 	border-radius: 100%;
 }
+
+::-webkit-scrollbar {
+	width: 12px !important;
+	height: 8px !important;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: rgba(0, 0, 0, 0.3);
+	border-radius: 30px;
+}
+
+::-webkit-scrollbar-track {
+	background: transparent;
+}

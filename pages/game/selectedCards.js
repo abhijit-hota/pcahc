@@ -1,5 +1,5 @@
 import { Box, HStack, Heading } from "@chakra-ui/layout";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import whites from "../../public/white-cards.json";
 import { CAH_PLAYER_ID, CAH_ROOM_CODE } from "../../utils/tokenNames";
 import { db } from "../../utils/_firebase";
@@ -11,6 +11,8 @@ const MotionBox = motion(Box);
 
 const PlayedCards = ({ czar, playerIDs, setIsTurnLeft }) => {
 	const [cards, setCards] = useState([]);
+	const cardsRowRef = useRef(null);
+
 	const getNextCzar = () => {
 		const currentCzar = playerIDs.indexOf(czar);
 		const nextCzarIndex = currentCzar + 1 >= playerIDs.length ? 0 : currentCzar + 1;
@@ -60,16 +62,24 @@ const PlayedCards = ({ czar, playerIDs, setIsTurnLeft }) => {
 		}
 	};
 	return (
-		<HStack w="100%" overflowX="auto">
+		<HStack
+			alignSelf="flex-start"
+			maxW={["95vw", "60vw"]}
+			overflowX="auto"
+			ref={cardsRowRef}
+			onWheel={(e) => {
+				const direction = e.deltaY > 0 ? 1 : -1;
+				cardsRowRef.current.scrollLeft += 100 * direction;
+			}}>
 			{cards.map(([player, index]) => {
 				const isTurn = czar === sessionStorage.getItem(CAH_PLAYER_ID);
 				return (
 					<MotionBox
 						whileHover={{ scale: 1.2 }}
 						bg="white"
-						minW="56"
-						maxW="56"
-						h="56"
+						minW={["40", "56"]}
+						maxW={["40", "56"]}
+						h={["32", "56"]}
 						rounded="lg"
 						p="4"
 						key={`${player}-${index}`}

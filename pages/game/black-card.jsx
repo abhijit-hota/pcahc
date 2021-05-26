@@ -16,7 +16,7 @@ const BlackCard = () => {
 		});
 	}, []);
 	return (
-		<Box bg="black" w="64" minH="80" rounded="lg" p="4" shadow="dark-lg">
+		<Box bg="black" minW={["44", "64"]} maxW={["44", "64"]} minH={["30", "80"]} rounded="lg" p="4" shadow="dark-lg">
 			<Heading color="white" size="lg">
 				{text}
 			</Heading>

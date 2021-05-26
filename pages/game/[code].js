@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
 
-import { Box, Container, Divider, Spacer, VStack } from "@chakra-ui/react";
+import { Box, Container, Divider, Spacer, Stack, useBreakpointValue, VStack } from "@chakra-ui/react";
 import BlackCard from "./black-card";
 import Players from "./players";
 
@@ -15,6 +15,11 @@ export default function Game() {
 	const [playerIDs, setPlayerIDs] = useState([1, 2, 3]);
 	const [currentUserID, setCurrentUserID] = useState("");
 	const [isTurnLeft, setIsTurnLeft] = useState(true);
+
+	const dividerProps = useBreakpointValue([
+		{ orientation: "horizontal", mt: "4", mb: "4" },
+		{ orientation: "vertical", ml: "4", mr: "4" },
+	]);
 
 	const [roomCode, setRoomCode] = useState("");
 	const getNextCzar = () => {
@@ -45,7 +50,6 @@ export default function Game() {
 		const _roomCode = sessionStorage.getItem(CAH_ROOM_CODE);
 		const userId = sessionStorage.getItem(CAH_PLAYER_ID);
 		const roomPath = `rooms/${_roomCode}`;
-
 		if (playerIDs.length > 1) {
 			db.ref(roomPath).onDisconnect().cancel();
 
@@ -69,14 +73,21 @@ export default function Game() {
 			{czar === "" ? (
 				"Loading"
 			) : (
-				<Box rounded="lg" d="flex" h="87vh" p="4" w="85vw">
-					<VStack w="20vw">
+				<Box
+					rounded="lg"
+					d="flex"
+					alignItems="flex-start"
+					flexDirection={["column", "row"]}
+					h={["82vh", "87vh"]}
+					p="4"
+					w={["100vw", "85vw"]}>
+					<Stack direction={["row", "column"]} w="full">
 						<BlackCard />
 						<Spacer />
 						<Players czar={czar} setPlayerIDs={setPlayerIDs} />
-					</VStack>
-					<Divider orientation="vertical" ml="4" mr="4" />
-					<VStack w="60vw" h="100%">
+					</Stack>
+					<Divider {...dividerProps} />
+					<VStack h="100%">
 						<PlayedCards czar={czar} playerIDs={playerIDs} setIsTurnLeft={setIsTurnLeft} />
 						<Spacer />
 						<MyCards isTurn={isTurnLeft && czar !== currentUserID} />
