@@ -18,7 +18,7 @@
 - Choose a better license?
   - CAH wants us to include the same license. But this license is not recommended for software. Hope I don't get into trouble.
 
-## LICENCSE
+## LICENSE
 
 Shield: [![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
 

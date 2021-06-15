@@ -13,7 +13,9 @@
     "@emotion/styled": "11",
     "boring-avatars": "1.5.3",
     "firebase": "8.6.2",
+    "firebase-admin": "9.9.0",
     "framer-motion": "4",
+    "ky": "0.28.5",
     "next": "10.2.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
@@ -21,7 +23,8 @@
   },
   "devDependencies": {
     "eslint": "7.27.0",
-    "eslint-plugin-react": "7.23.2"
+    "eslint-plugin-react": "7.23.2",
+    "next-transpile-modules": "7.3.0"
   },
-  "license": "cc-by-nc-sa"
+  "license": "MIT"
 }

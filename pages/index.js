@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { v4 as uuid } from "uuid";
 import {
 	Box,
 	Button,
@@ -16,13 +15,11 @@ import {
 	Text,
 } from "@chakra-ui/react";
 import Avatar from "boring-avatars";
-import { generateRoomCode } from "../utils/generateRoomCode";
-import { db } from "../utils/_firebase";
-import { getRandomWhiteCards, getRandomBlackCard } from "../utils/getRandomCard";
 import { CAH_PLAYER_ID, CAH_ROOM_CODE } from "../utils/tokenNames";
+import api from "../utils/api";
 
 export default function Home() {
-	const [name, setName] = useState("");
+	const [username, setUsername] = useState("");
 	const [roomCode, setRoomCode] = useState("");
 	const [loading, setLoading] = useState({ joining: false, creating: false });
 	const [isRoomCodeInvalid, setIsRoomCodeInvalid] = useState(false);
@@ -40,65 +37,37 @@ export default function Home() {
 		router.push(`/game/${code}`);
 	};
 	const handleRoomCreate = async () => {
-		const isNameInvalid = !/^[\w\d\s]{1,12}$/.test(name);
+		const isNameInvalid = !/^[\w\d\s]{1,12}$/.test(username);
 		if (isNameInvalid) {
 			setIsNameInvalid(isNameInvalid);
 			return false;
 		}
-
-		setLoading({ joining: false, creating: true });
-		const { letters } = generateRoomCode();
-		const code = letters.join("");
-		const roomExists = (await db.ref(`rooms/${code}`).once("value")).exists();
-
-		if (!roomExists) {
-			try {
-				const userID = uuid();
-
-				await db.ref(`rooms/${code}`).set({
-					round: {
-						whiteCards: [],
-						czar: userID,
-						blackCard: getRandomBlackCard(),
-					},
-					players: { [userID]: { name, points: 0, cards: getRandomWhiteCards(10) } },
-					creator: userID,
-				});
-				handleSuccess(userID, code);
-			} catch (error) {
-				console.log(error);
-			} finally {
-				setLoading({ joining: false, creating: false });
-			}
-		} else {
-			await handleRoomCreate();
+		try {
+			setLoading({ joining: false, creating: true });
+			const { userID, roomCode } = await api.post("/create-room", { username });
+			handleSuccess(userID, roomCode);
+		} catch (error) {
+			//todo: show error toast
+			console.log(error);
+		} finally {
+			setLoading({ joining: false, creating: false });
 		}
 	};
 
 	const handleRoomJoin = async () => {
-		const isNameInvalid = !/^[\w\d\s]{1,12}$/.test(name);
+		const isNameInvalid = !/^[\w\d\s]{1,12}$/.test(username);
 		const isCodeInvalid = !/^[A-Z]{6}$/.test(roomCode);
 		if (isCodeInvalid || isNameInvalid) {
 			setIsRoomCodeInvalid(isCodeInvalid);
 			setIsNameInvalid(isNameInvalid);
 			return false;
 		}
-		setLoading({ joining: true, creating: false });
-		const roomExists = (await db.ref(`rooms/${roomCode}`).once("value")).exists();
-		if (roomExists) {
-			try {
-				const userID = uuid();
 
-				await db.ref(`rooms/${roomCode}/players/${userID}`).set({
-					name,
-					cards: getRandomWhiteCards(1),
-					points: 0,
-				});
-				handleSuccess(userID);
-			} catch (err) {
-				console.log(err);
-			}
-		} else {
+		setLoading({ joining: true, creating: false });
+		try {
+			const { userID } = await api.post("/join-room", { roomCode, username });
+			handleSuccess(userID);
+		} catch (err) {
 			setIsRoomCodeInvalid(true);
 		}
 		setLoading({ joining: false, creating: false });
@@ -109,13 +78,13 @@ export default function Home() {
 			<Box shadow="2xl" p="4" rounded="lg" bg={boxBg} maxW="md" minW="sm">
 				<VStack>
 					<AspectRatio ratio={1 / 1} w="32" m="6">
-						{name === "" ? (
+						{username === "" ? (
 							<Box w="32" h="32" bg={avatarPlaceholder} color={boxBg} rounded="full">
 								<Heading>CAH</Heading>
 							</Box>
 						) : (
 							<Avatar
-								name={name}
+								name={username}
 								variant="bauhaus"
 								size="8rem"
 								colors={["#ecd078", "#d95b43", "#c02942", "#542437", "#53777a"]}
@@ -126,12 +95,12 @@ export default function Home() {
 						size="lg"
 						name="name"
 						placeholder="Enter username"
-						value={name}
+						value={username}
 						onChange={({ target: { value } }) => {
 							if (isNameInvalid) {
 								setIsNameInvalid(false);
 							}
-							setName(value);
+							setUsername(value);
 						}}
 						isInvalid={isNameInvalid}
 					/>
