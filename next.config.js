@@ -8,6 +8,6 @@ module.exports = (phase) => ({
 			phase === PHASE_DEVELOPMENT_SERVER ? "development" : phase === PHASE_PRODUCTION_BUILD ? "production" : "",
 	},
 	images: {
-		domains: ["avatar.tobi.sh"],
+		domains: ["source.boringavatars.com"],
 	},
 });

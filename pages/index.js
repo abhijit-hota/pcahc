@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { v4 as uuid } from "uuid";
-import Image from "next/image";
 import {
 	Box,
 	Button,
@@ -16,6 +15,7 @@ import {
 	InputRightAddon,
 	Text,
 } from "@chakra-ui/react";
+import Avatar from "boring-avatars";
 import { generateRoomCode } from "../utils/generateRoomCode";
 import { db } from "../utils/_firebase";
 import { getRandomWhiteCards, getRandomBlackCard } from "../utils/getRandomCard";
@@ -108,17 +108,17 @@ export default function Home() {
 		<Container centerContent pt="12">
 			<Box shadow="2xl" p="4" rounded="lg" bg={boxBg} maxW="md" minW="sm">
 				<VStack>
-					<AspectRatio ratio={1 / 1} w="32" m="12" mb="6">
+					<AspectRatio ratio={1 / 1} w="32" m="6">
 						{name === "" ? (
 							<Box w="32" h="32" bg={avatarPlaceholder} color={boxBg} rounded="full">
 								<Heading>CAH</Heading>
 							</Box>
 						) : (
-							<Image
-								className="cah-avatar"
-								loader={({ src }) => `https://avatar.tobi.sh/${src}?size=60`}
-								src={name}
-								layout="fill"
+							<Avatar
+								name={name}
+								variant="bauhaus"
+								size="8rem"
+								colors={["#ecd078", "#d95b43", "#c02942", "#542437", "#53777a"]}
 							/>
 						)}
 					</AspectRatio>

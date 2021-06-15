@@ -11,6 +11,7 @@
     "@chakra-ui/react": "1.6.2",
     "@emotion/react": "11",
     "@emotion/styled": "11",
+    "boring-avatars": "1.5.3",
     "firebase": "8.6.2",
     "framer-motion": "4",
     "next": "10.2.2",
@@ -22,5 +23,5 @@
     "eslint": "7.27.0",
     "eslint-plugin-react": "7.23.2"
   },
-"license": "cc-by-nc-sa"
+  "license": "cc-by-nc-sa"
 }

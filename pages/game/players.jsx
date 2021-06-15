@@ -42,17 +42,17 @@ const Players = ({ czar, setPlayerIDs }) => {
 						key={key}>
 						<Image
 							className="cah-avatar"
-							loader={({ src }) =>
-								`https://avatar.tobi.sh/${src}.svg?size=32${
-									sessionStorage[CAH_PLAYER_ID] === key ? "&text=You" : ""
-								}`
-							}
+							loader={({ src }) => {
+								const name = encodeURIComponent(src);
+								return `https://source.boringavatars.com/bauhaus/32/${name}?colors=ecd078,d95b43,c02942,542437,53777a`;
+							}}
 							src={name}
 							width="32"
 							height="32"
 						/>
 						<Heading size="sm" ml="2">
 							{name}
+							{sessionStorage[CAH_PLAYER_ID] === key ? " (You)" : ""}
 							{czar === key ? " (Czar)" : ""}
 						</Heading>
 						<Spacer />

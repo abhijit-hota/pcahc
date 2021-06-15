@@ -1415,6 +1415,11 @@ bn.js@^5.0.0, bn.js@^5.1.1:
   resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-5.2.0.tgz#358860674396c6997771a9d051fcc1b57d4ae002"
   integrity sha512-D7iWRBvnZE8ecXiLj/9wbxH7Tk79fAh8IHaTNq1RWRixsS02W+5qS+iE9yq6RYl0asXx5tw0bLhmT5pIfbSquw==
 
+boring-avatars@1.5.3:
+  version "1.5.3"
+  resolved "https://registry.yarnpkg.com/boring-avatars/-/boring-avatars-1.5.3.tgz#6e2fada90809e114fe9143eb6a6977f7f1458628"
+  integrity sha512-4qiedcuiqK/INHIuPigWfe+1SpuSjWoAZq90+fc5Ea8ja1SaUTgmvR2FySry+kzjqx9Y52StrIO758dG52WfEA==
+
 brace-expansion@^1.1.7:
   version "1.1.11"
   resolved "https://registry.yarnpkg.com/brace-expansion/-/brace-expansion-1.1.11.tgz#3c7fcbf529d87226f3d2f52b966ff5271eb441dd"
