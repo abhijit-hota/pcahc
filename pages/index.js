@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+
 import {
 	Box,
 	Button,
@@ -17,6 +18,15 @@ import {
 import Avatar from "boring-avatars";
 import { CAH_PLAYER_ID, CAH_ROOM_CODE } from "../utils/tokenNames";
 import api from "../utils/api";
+import { auth } from "../utils/auth";
+
+const NAME_RE = /^[\w\d\s]{1,12}$/;
+const CODE_RE = /^[A-Z]{6}$/;
+
+const signIn = async () => {
+	const signedIn = await auth.signInAnonymously();
+	return { userID: signedIn.user.uid };
+};
 
 export default function Home() {
 	const [username, setUsername] = useState("");
@@ -31,32 +41,36 @@ export default function Home() {
 	);
 	const router = useRouter();
 
-	const handleSuccess = (id, code = roomCode) => {
+	const handleSuccess = async (id, code = roomCode) => {
 		sessionStorage.setItem(CAH_ROOM_CODE, code);
 		sessionStorage.setItem(CAH_PLAYER_ID, id);
 		router.push(`/game/${code}`);
 	};
 	const handleRoomCreate = async () => {
-		const isNameInvalid = !/^[\w\d\s]{1,12}$/.test(username);
+		const isNameInvalid = !NAME_RE.test(username);
 		if (isNameInvalid) {
 			setIsNameInvalid(isNameInvalid);
 			return false;
 		}
+		setLoading({ joining: false, creating: true });
 		try {
-			setLoading({ joining: false, creating: true });
-			const { userID, roomCode } = await api.post("/create-room", { username });
+			const { userID } = await signIn();
+			const { roomCode } = await api.post("/create-room", {
+				username,
+				userID,
+			});
+			await auth.currentUser.getIdToken(true);
 			handleSuccess(userID, roomCode);
 		} catch (error) {
 			//todo: show error toast
 			console.log(error);
-		} finally {
-			setLoading({ joining: false, creating: false });
 		}
+		setLoading({ joining: false, creating: false });
 	};
-
-	const handleRoomJoin = async () => {
-		const isNameInvalid = !/^[\w\d\s]{1,12}$/.test(username);
-		const isCodeInvalid = !/^[A-Z]{6}$/.test(roomCode);
+	const handleRoomJoin = async (code = roomCode) => {
+		const isNameInvalid = !NAME_RE.test(username);
+		const isCodeInvalid = !CODE_RE.test(code);
+		console.log(isCodeInvalid, code);
 		if (isCodeInvalid || isNameInvalid) {
 			setIsRoomCodeInvalid(isCodeInvalid);
 			setIsNameInvalid(isNameInvalid);
@@ -65,14 +79,20 @@ export default function Home() {
 
 		setLoading({ joining: true, creating: false });
 		try {
-			const { userID } = await api.post("/join-room", { roomCode, username });
-			handleSuccess(userID);
+			const { userID } = await signIn();
+			await api.post("/join-room", {
+				username,
+				userID,
+				roomCode: code,
+			});
+			await auth.currentUser.getIdToken(true);
+			handleSuccess(userID, code);
 		} catch (err) {
+			console.log(err);
 			setIsRoomCodeInvalid(true);
 		}
 		setLoading({ joining: false, creating: false });
 	};
-
 	return (
 		<Container centerContent pt="12">
 			<Box shadow="2xl" p="4" rounded="lg" bg={boxBg} maxW="md" minW="sm">
@@ -111,54 +131,70 @@ export default function Home() {
 						</Text>
 					)}
 					<Divider sx={{ margin: "1rem 0 1rem 0 !important" }} />
-					<InputGroup size="lg" w="full" sx={{ margin: "0 !important" }}>
-						<Input
-							borderRight="none"
-							size="lg"
-							placeholder="Room code"
-							value={roomCode}
-							onChange={({ target: { value } }) => {
-								if (isRoomCodeInvalid) {
-									setIsRoomCodeInvalid(false);
-								}
-								setRoomCode(value.toUpperCase());
-							}}
-							isInvalid={isRoomCodeInvalid}
-							onKeyDown={({ key }) => {
-								if (key === "Enter") {
-									handleRoomJoin();
-								}
-							}}
-						/>
-						<InputRightAddon p="0" border="none">
+					{!router.query.join && !CODE_RE.test(router.query.join) ? (
+						<>
+							<InputGroup size="lg" w="full" sx={{ margin: "0 !important" }}>
+								<Input
+									borderRight="none"
+									size="lg"
+									placeholder="Room code"
+									value={roomCode}
+									onChange={({ target: { value } }) => {
+										if (isRoomCodeInvalid) {
+											setIsRoomCodeInvalid(false);
+										}
+										console.log(value, roomCode);
+										setRoomCode(value.toUpperCase());
+									}}
+									isInvalid={isRoomCodeInvalid}
+									onKeyDown={({ key }) => {
+										if (key === "Enter") {
+											handleRoomJoin();
+										}
+									}}
+								/>
+								<InputRightAddon p="0" border="none">
+									<Button
+										variant="ghost"
+										size="lg"
+										w="full"
+										borderLeftRadius="none"
+										onClick={() => handleRoomJoin(roomCode)}
+										isLoading={loading.joining}
+									>
+										Join Room
+									</Button>
+								</InputRightAddon>
+							</InputGroup>
+							{isRoomCodeInvalid && (
+								<Text color="red.300" alignSelf="flex-start">
+									Where&apos;d you get that code from, dumbass?
+								</Text>
+							)}
+							<Heading fontWeight="thin" size="md" p="3">
+								OR
+							</Heading>
 							<Button
-								variant="ghost"
-								size="lg"
 								w="full"
-								borderLeftRadius="none"
-								onClick={handleRoomJoin}
-								isLoading={loading.joining}>
-								Join Room
+								size="lg"
+								type="submit"
+								isLoading={loading.creating}
+								variant="solid"
+								onClick={handleRoomCreate}
+							>
+								Create Room
 							</Button>
-						</InputRightAddon>
-					</InputGroup>
-					{isRoomCodeInvalid && (
-						<Text color="red.300" alignSelf="flex-start">
-							Where&apos;d you get that code from, dumbass?
-						</Text>
+						</>
+					) : (
+						<Button
+							size="lg"
+							w="full"
+							onClick={() => handleRoomJoin(router.query.join)}
+							isLoading={loading.joining}
+						>
+							Join Room
+						</Button>
 					)}
-					<Heading fontWeight="thin" size="md" p="3">
-						OR
-					</Heading>
-					<Button
-						w="full"
-						size="lg"
-						type="submit"
-						isLoading={loading.creating}
-						variant="solid"
-						onClick={handleRoomCreate}>
-						Create Room
-					</Button>
 				</VStack>
 			</Box>
 		</Container>

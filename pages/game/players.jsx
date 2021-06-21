@@ -2,24 +2,23 @@ import { Box, Heading, VStack, Spacer } from "@chakra-ui/layout";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { CAH_PLAYER_ID, CAH_ROOM_CODE } from "../../utils/tokenNames";
-import { db } from "../../utils/_firebase";
+import { db } from "../../utils/db";
 
-const Players = ({ czar, setPlayerIDs }) => {
+const Players = ({ czar }) => {
 	const [players, setPlayers] = useState([]);
 
 	useEffect(() => {
 		const roomCode = sessionStorage.getItem(CAH_ROOM_CODE);
-		const path = `rooms/${roomCode}/players`;
-		db.ref(path).on("value", (snap) => {
+		const playersPath = `rooms/${roomCode}/players`;
+		db.ref(playersPath).on("value", (snap) => {
 			if (snap.exists()) {
 				const _players = Object.entries(snap.val());
 				setPlayers(_players);
-				setPlayerIDs(_players.map(([key, { name }]) => ({ key, name })));
 			}
 		});
 
 		return () => {
-			db.ref(path).off("value");
+			db.ref(playersPath).off("value");
 		};
 	}, []);
 	return (

@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
 import {
 	Heading,
 	Flex,
@@ -7,21 +8,18 @@ import {
 	useColorMode,
 	useColorModeValue,
 	IconButton,
-	useClipboard,
-	useToast,
 	useDisclosure,
-	HStack,
 } from "@chakra-ui/react";
-import { MoonIcon, SunIcon, InfoIcon, CloseIcon, CopyIcon } from "@chakra-ui/icons";
+import { MoonIcon, SunIcon, InfoIcon } from "@chakra-ui/icons";
 import InfoModal from "./info-modal";
+
+const GameOpts = dynamic(() => import("./game-opts"), { ssr: false });
 
 const Header = () => {
 	const { toggleColorMode } = useColorMode();
 	const text = useColorModeValue("dark", "light");
 	const SwitchIcon = useColorModeValue(MoonIcon, SunIcon);
 	const router = useRouter();
-	const { onCopy } = useClipboard(router.query.code || "");
-	const toast = useToast();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	const isHomeRoute = router.pathname === "/";
@@ -33,44 +31,7 @@ const Header = () => {
 					<Heading size="lg">Cards Against Humanity</Heading>
 				</Box>
 			)}
-			{!isHomeRoute && (
-				<HStack>
-					<Heading size="sm">Room Code {router.query.code}</Heading>
-					<IconButton
-						size="md"
-						fontSize="lg"
-						aria-label="Leave Game"
-						variant="ghost"
-						color="current"
-						marginLeft="2"
-						onClick={() => {
-							onCopy();
-							toast({
-								duration: 2000,
-								position: "top",
-								title: "Room Code copied",
-								status: "success",
-								isClosable: true,
-							});
-						}}
-						icon={<CopyIcon />}>
-						Copy Room Code
-					</IconButton>
-					<IconButton
-						size="md"
-						fontSize="lg"
-						aria-label="Leave Game"
-						variant="ghost"
-						color="current"
-						marginLeft="2"
-						onClick={() => {
-							window.location.pathname = "/";
-						}}
-						icon={<CloseIcon />}>
-						Leave
-					</IconButton>
-				</HStack>
-			)}
+			{!isHomeRoute && <GameOpts code={router.query.code} />}
 			<Spacer />
 			<Box>
 				<IconButton
@@ -81,7 +42,8 @@ const Header = () => {
 					color="current"
 					marginLeft="2"
 					onClick={onOpen}
-					icon={<InfoIcon />}>
+					icon={<InfoIcon />}
+				>
 					Info
 				</IconButton>
 				<InfoModal isOpen={isOpen} onClose={onClose} />
@@ -95,7 +57,8 @@ const Header = () => {
 					color="current"
 					marginLeft="2"
 					onClick={toggleColorMode}
-					icon={<SwitchIcon />}>
+					icon={<SwitchIcon />}
+				>
 					Color
 				</IconButton>
 			</Box>

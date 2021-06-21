@@ -1,6 +1,17 @@
 import ky from "ky";
+import { auth } from "./auth";
 
-const kyInstance = ky.create({ prefixUrl: "/api" });
+const kyInstance = ky.create({
+	prefixUrl: "/api",
+	hooks: {
+		beforeRequest: [
+			async (req) => {
+				req.headers.append("idToken", await auth.currentUser.getIdToken(true));
+			},
+		],
+	},
+	credentials: "include",
+});
 
 const api = {
 	...kyInstance,

@@ -1,37 +1,37 @@
 import { Box, HStack, Heading } from "@chakra-ui/layout";
 import { useEffect, useRef, useState } from "react";
 import whites from "../../public/white-cards.json";
-import { getRandomWhiteCards } from "../../utils/getRandomCard";
+import api from "../../utils/api";
 import { CAH_PLAYER_ID, CAH_ROOM_CODE } from "../../utils/tokenNames";
-import { db } from "../../utils/_firebase";
+import { db } from "../../utils/db";
 
 const MyCards = ({ isTurn }) => {
 	const [cards, setCards] = useState([]);
 	const cardsRowRef = useRef(null);
 	useEffect(() => {
-		const roomCode = sessionStorage.getItem(CAH_ROOM_CODE);
-		const userID = sessionStorage.getItem(CAH_PLAYER_ID);
+		const roomCode = sessionStorage[CAH_ROOM_CODE];
+		const userID = sessionStorage[CAH_PLAYER_ID];
 
-		const _path = `rooms/${roomCode}/players/${userID}/cards`;
-
-		db.ref(_path).on("value", (snap) => {
-			setCards(snap.val());
-		});
-
+		const _path = `rooms/${roomCode}/playerCards/${userID}`;
+		try {
+			db.ref(_path).on("value", (snap) => {
+				setCards(snap.val());
+			});
+		} catch (error) {
+			console.log(1);
+			console.log(error);
+		}
 		return () => {
 			db.ref(_path).off("value");
 		};
 	}, []);
 
 	const onSelect = async (index) => {
-		const roomCode = sessionStorage.getItem(CAH_ROOM_CODE);
-		const userID = sessionStorage.getItem(CAH_PLAYER_ID);
-
-		await db.ref(`rooms/${roomCode}/round/whiteCards/${userID}`).set(index);
-
-		const _path = `rooms/${roomCode}/players/${userID}/cards`;
-		const newCards = cards.filter((val) => val !== index);
-		await db.ref(_path).set(newCards.length > 0 ? newCards : getRandomWhiteCards());
+		try {
+			await api.post("/play-card", { index });
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	return (
@@ -40,9 +40,12 @@ const MyCards = ({ isTurn }) => {
 			overflowX="auto"
 			ref={cardsRowRef}
 			onWheel={(e) => {
-				const direction = e.deltaY > 0 ? 1 : -1;
-				cardsRowRef.current.scrollLeft += 100 * direction;
-			}}>
+				if (e.deltaY) {
+					const direction = e.deltaY > 0 ? 1 : -1;
+					cardsRowRef.current.scrollLeft += 100 * direction;
+				}
+			}}
+		>
 			{cards.map((cardIndex) => (
 				<Box
 					bg="white"
@@ -65,7 +68,8 @@ const MyCards = ({ isTurn }) => {
 						if (isTurn) {
 							onSelect(cardIndex);
 						}
-					}}>
+					}}
+				>
 					<Heading size="md" color="black">
 						{whites[cardIndex].text}
 					</Heading>

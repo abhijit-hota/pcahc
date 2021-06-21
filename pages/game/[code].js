@@ -1,19 +1,30 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
+import dynamic from "next/dynamic";
 
-import { Box, Container, Divider, Spacer, Stack, useBreakpointValue, useToast, VStack } from "@chakra-ui/react";
+import {
+	Box,
+	Container,
+	Divider,
+	Spacer,
+	Stack,
+	useBreakpointValue,
+	useToast,
+	VStack,
+} from "@chakra-ui/react";
 import BlackCard from "./black-card";
 import Players from "./players";
 
-import { db } from "../../utils/_firebase";
+import { db } from "../../utils/db";
 import MyCards from "./my-cards";
 import PlayedCards from "./selectedCards";
 import { CAH_PLAYER_ID, CAH_ROOM_CODE } from "../../utils/tokenNames";
 
-export default function Game() {
+const roomCode = sessionStorage.getItem(CAH_ROOM_CODE);
+const userID = sessionStorage.getItem(CAH_PLAYER_ID);
+
+function Game() {
 	const [czar, setCzar] = useState("");
-	const [playerIDs, setPlayerIDs] = useState([]);
-	const [currentUserID, setCurrentUserID] = useState("");
 	const [isTurnLeft, setIsTurnLeft] = useState(true);
 
 	const dividerProps = useBreakpointValue([
@@ -21,61 +32,42 @@ export default function Game() {
 		{ orientation: "vertical", ml: "4", mr: "4" },
 	]);
 	const toast = useToast();
-
-	const [roomCode, setRoomCode] = useState("");
-	const getNextCzar = () => {
-		const currentCzar = playerIDs.findIndex(({ key }) => key === czar);
-		const nextCzarIndex = currentCzar + 1 >= playerIDs.length ? 0 : currentCzar + 1;
-		return playerIDs[nextCzarIndex].key;
-	};
 	useEffect(() => {
-		setRoomCode(sessionStorage[CAH_ROOM_CODE]);
-		setCurrentUserID(sessionStorage[CAH_PLAYER_ID]);
+		(async () => {
+			try {
+				setCzar((await db.ref(`rooms/${roomCode}/round/czar`).get()).val());
+			} catch (error) {
+				console.log(2);
+				console.log(error);
+			}
+		})();
 	}, []);
 
 	useEffect(() => {
-		if (roomCode && currentUserID) {
-			const path = `rooms/${roomCode}/round/czar`;
-			db.ref(path).on("value", (snap) => {
-				if (snap.exists()) {
-					const newCzar = snap.val();
-					if (playerIDs.length > 0) {
-						toast({
-							duration: 2000,
-							position: "top",
-							title: `${playerIDs.find(({ key }) => key === newCzar).name} is now the Czar`,
-							status: "info",
-							isClosable: false,
-						});
-					}
-					setCzar(newCzar);
-				}
-			});
-			return () => {
-				db.ref(path).off("value");
-			};
-		}
-	}, [currentUserID, roomCode]);
+		const path = `rooms/${roomCode}/round/czar`;
+		db.ref(path).on("value", (snap) => {
+			if (snap.exists()) {
+				const newCzar = snap.val();
+				toast({
+					duration: 2000,
+					position: "top",
+					title: `${newCzar} is now the Czar`,
+					status: "info",
+					isClosable: false,
+				});
+				setCzar(newCzar);
+			}
+		});
+		return () => {
+			db.ref(path).off("value");
+		};
+	}, []);
 
 	useEffect(() => {
-		const _roomCode = sessionStorage.getItem(CAH_ROOM_CODE);
-		const userId = sessionStorage.getItem(CAH_PLAYER_ID);
-		const roomPath = `rooms/${_roomCode}`;
-		if (playerIDs.length > 1) {
-			db.ref(roomPath).onDisconnect().cancel();
+		const roomPath = `rooms/${roomCode}`;
+		db.ref(`${roomPath}/players/${userID}`).onDisconnect().remove();
+	}, []);
 
-			db.ref(`${roomPath}/players/${sessionStorage.getItem(CAH_PLAYER_ID)}`)
-				.onDisconnect()
-				.remove();
-			db.ref(`${roomPath}/round/czar`)
-				.onDisconnect()
-				.set(czar === userId ? getNextCzar() : czar);
-			db.ref(`${roomPath}/round/whiteCards/${userId}`).onDisconnect().remove();
-		} else if (playerIDs.length !== 0) {
-			db.ref(roomPath).onDisconnect().remove();
-		}
-	}, [playerIDs]);
-	
 	return (
 		<Container centerContent w="full" h="100%">
 			<Head>
@@ -91,20 +83,23 @@ export default function Game() {
 					flexDirection={["column", "row"]}
 					h={["82vh", "87vh"]}
 					p="4"
-					w={["100vw", "85vw"]}>
+					w={["100vw", "85vw"]}
+				>
 					<Stack direction={["row", "column"]} w={["100%", "unset"]}>
 						<BlackCard />
 						<Spacer />
-						<Players czar={czar} setPlayerIDs={setPlayerIDs} />
+						<Players czar={czar} />
 					</Stack>
 					<Divider {...dividerProps} />
 					<VStack h="100%">
-						<PlayedCards czar={czar} playerIDs={playerIDs} setIsTurnLeft={setIsTurnLeft} />
+						<PlayedCards czar={czar} setIsTurnLeft={setIsTurnLeft} />
 						<Spacer />
-						<MyCards isTurn={isTurnLeft && czar !== currentUserID} />
+						<MyCards isTurn={isTurnLeft && czar !== userID} />
 					</VStack>
 				</Box>
 			)}
 		</Container>
 	);
 }
+
+export default dynamic(() => Promise.resolve(Game), { ssr: false });

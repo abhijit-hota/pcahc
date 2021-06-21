@@ -1,7 +1,7 @@
 import { Box, Heading } from "@chakra-ui/layout";
 import { useEffect, useState } from "react";
 import { CAH_ROOM_CODE } from "../../utils/tokenNames";
-import { db } from "../../utils/_firebase";
+import { db } from "../../utils/db";
 import blacks from "../../public/black-cards.json";
 
 const BlackCard = () => {

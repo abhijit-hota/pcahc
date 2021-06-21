@@ -1,7 +1,8 @@
-import { v4 as uuid } from "uuid";
+import { auth } from "firebase-admin";
 import { db } from ".";
 import { generateRoomCode } from "../../utils/generateRoomCode";
 import { getRandomBlackCard, getRandomWhiteCards } from "../../utils/getRandomCard";
+import { addLeaveListener } from "./addLeaveListener";
 
 const createRoomCode = async () => {
 	const code = generateRoomCode();
@@ -24,19 +25,21 @@ const createRoom = async (code, user) => {
 			blackCard: getRandomBlackCard(),
 		},
 		playedBlackCards: [newBlackCard],
-		players: { [userID]: { name, points: 0, cards: getRandomWhiteCards(10) } },
-		creator: userID,
+		players: { [userID]: { name, points: 0 } },
+		playerCards: { [userID]: getRandomWhiteCards(10) },
 	});
 };
 
 const handleCreateRoom = async (req, res) => {
 	try {
-		const id = uuid();
-		const code = await createRoomCode();
-		await createRoom(code, { id, name: req.body.username });
-		res.json({ userID: id, roomCode: code });
-    } catch (error) {
-        console.error(error)
+		const { username, userID } = req.body;
+		const roomCode = await createRoomCode();
+		await createRoom(roomCode, { id: userID, name: username });
+		await auth().setCustomUserClaims(userID, { roomCode });
+		await addLeaveListener(roomCode);
+		res.json({ roomCode });
+	} catch (error) {
+		console.error(error);
 		res.status(500).send(error?.message);
 	}
 };

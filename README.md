@@ -13,10 +13,9 @@
   - Downloading/**Fetching from a DB** 
 - Handling more "picks". 
   - Doesn't work for more than one pick. You should go ahead with playing.
-- RTDB Security Rules
-  - **Plan**: Make `/api` routes and update only from those routes. Restrict all update functionality to admin user in firebase if that's a thing.
 - Choose a better license?
   - CAH wants us to include the same license. But this license is not recommended for software. Hope I don't get into trouble.
+- Folder Restructure
 
 ## LICENSE
 
