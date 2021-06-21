@@ -20,10 +20,11 @@ import MyCards from "./my-cards";
 import PlayedCards from "./selectedCards";
 import { CAH_PLAYER_ID, CAH_ROOM_CODE } from "../../utils/tokenNames";
 
-const roomCode = sessionStorage.getItem(CAH_ROOM_CODE);
-const userID = sessionStorage.getItem(CAH_PLAYER_ID);
 
 function Game() {
+	const roomCode = sessionStorage.getItem(CAH_ROOM_CODE);
+	const userID = sessionStorage.getItem(CAH_PLAYER_ID);
+	
 	const [czar, setCzar] = useState("");
 	const [isTurnLeft, setIsTurnLeft] = useState(true);
 
