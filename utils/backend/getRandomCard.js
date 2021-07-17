@@ -1,5 +1,5 @@
-import whites from "public/white-cards.json";
-import blacks from "public/black-cards.json";
+import whites from "public/data/white-cards.json";
+import blacks from "public/data/black-cards.json";
 
 const NUM_WHITES = whites.length;
 const NUM_BLACKS = blacks.length;

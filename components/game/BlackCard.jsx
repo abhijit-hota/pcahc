@@ -1,5 +1,5 @@
 import { Box, Heading } from "@chakra-ui/layout";
-import blacks from "public/black-cards.json";
+import blacks from "public/data/black-cards.json";
 import { useRealTimeData } from "frontend-utils/hooks";
 
 const BlackCard = () => {
