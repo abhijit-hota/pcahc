@@ -19,14 +19,13 @@ export default async function handleChangeCzar(req, res) {
 	const { blackCard, czar } = req.body;
 
 	try {
-		await db.ref(`${roomPath}/playedBlackCards`).once("value", async (snap) => {
-			const playedBlackCards = [...snap.val(), blackCard];
-			await snap.ref.set(playedBlackCards);
-			await db.ref(`${roomPath}/round`).set({
-				blackCard: getRandomBlackCard(playedBlackCards),
-				whiteCards: {},
-				czar: await getNextCzar(roomCode, czar),
-			});
+		const snap = await db.ref(`${roomPath}/playedBlackCards`).once("value");
+		const playedBlackCards = [...snap.val(), blackCard];
+		await snap.ref.set(playedBlackCards);
+		await db.ref(`${roomPath}/round`).set({
+			blackCard: getRandomBlackCard(playedBlackCards),
+			whiteCards: {},
+			czar: await getNextCzar(roomCode, czar),
 		});
 		res.json({ success: true });
 	} catch (err) {
