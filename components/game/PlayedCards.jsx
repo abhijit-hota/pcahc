@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import whites from "../../public/white-cards.json";
+import whites from "../../public/data/white-cards.json";
 import { CAH_PLAYER_ID } from "frontend-utils/tokenNames";
 import api from "frontend-utils/api";
 import { useRealTimeData } from "frontend-utils/hooks";

@@ -1,5 +1,5 @@
 import api from "frontend-utils/api";
-import whites from "public/white-cards.json";
+import whites from "public/data/white-cards.json";
 import { useRealTimeData } from "frontend-utils/hooks";
 import { Card, CardStack } from "components/common";
 
