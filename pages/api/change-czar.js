@@ -16,18 +16,21 @@ export const getNextCzar = async (roomCode, passedCzarID) => {
 export default async function handleChangeCzar(req, res) {
 	const { roomCode } = await auth().verifyIdToken(req.headers.idtoken, true);
 	const roomPath = `rooms/${roomCode}`;
-
 	const { blackCard, czar } = req.body;
 
-	await db.ref(`${roomPath}/playedBlackCards`).once("value", async (snap) => {
-		const playedBlackCards = [...snap.val(), blackCard];
-		await snap.ref.set(playedBlackCards);
-		await db.ref(`${roomPath}/round`).set({
-			blackCard: getRandomBlackCard(playedBlackCards),
-			whiteCards: {},
-			czar: await getNextCzar(roomCode, czar),
+	try {
+		await db.ref(`${roomPath}/playedBlackCards`).once("value", async (snap) => {
+			const playedBlackCards = [...snap.val(), blackCard];
+			await snap.ref.set(playedBlackCards);
+			await db.ref(`${roomPath}/round`).set({
+				blackCard: getRandomBlackCard(playedBlackCards),
+				whiteCards: {},
+				czar: await getNextCzar(roomCode, czar),
+			});
 		});
-	});
-
-	res.json({ success: true });
+		res.json({ success: true });
+	} catch (err) {
+		console.error(err);
+		res.status(500).json({ success: false });
+	}
 }
