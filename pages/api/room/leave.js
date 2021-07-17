@@ -5,6 +5,11 @@ import { getNextCzar } from "../change-czar";
 const cleanUpGame = async (roomCode, removedPlayerID) => {
 	const roomPath = `rooms/${roomCode}`;
 
+	await db.ref(roomPath).update({
+		[`players/${removedPlayerID}`]: null,
+		[`playerCards/${removedPlayerID}`]: null,
+		[`round/whiteCards/${removedPlayerID}`]: null,
+	});
 	const czar = (await db.ref(`${roomPath}/round/czar`).get()).val();
 	if (czar === removedPlayerID) {
 		const nextCzarID = await getNextCzar(roomCode, czar);
