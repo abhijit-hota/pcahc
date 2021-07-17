@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "@chakra-ui/icons": "1.0.13",
@@ -16,14 +17,15 @@
     "firebase-admin": "9.9.0",
     "framer-motion": "4",
     "ky": "0.28.5",
-    "next": "10.2.2",
+    "next": "11.0.1",
+    "page-lifecycle": "0.1.2",
     "react": "17.0.2",
     "react-dom": "17.0.2"
   },
   "devDependencies": {
-    "eslint": "7.27.0",
-    "eslint-plugin-react": "7.23.2",
-    "next-transpile-modules": "7.3.0"
+    "eslint": "7.29.0",
+    "eslint-config-next": "11.0.1",
+    "next-transpile-modules": "8.0.0"
   },
   "license": "MIT",
   "peerDependencies": {

@@ -1,7 +1,6 @@
 import { auth } from "firebase-admin";
-import { db } from ".";
-import { getRandomWhiteCards } from "../../utils/getRandomCard";
-import { addLeaveListener } from "./addLeaveListener";
+import { db } from "backend-utils/db";
+import { getRandomWhiteCards } from "backend-utils/getRandomCard";
 
 const handleJoinRoom = async (req, res) => {
 	try {
@@ -16,7 +15,6 @@ const handleJoinRoom = async (req, res) => {
 			});
 			await db.ref(`rooms/${roomCode}/playerCards/${userID}`).set(getRandomWhiteCards(10));
 			await auth().setCustomUserClaims(userID, { roomCode });
-			await addLeaveListener(roomCode);
 			res.json({ success: true });
 		} else {
 			res.status(400).send("Invalid Room Code");

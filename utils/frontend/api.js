@@ -1,12 +1,14 @@
 import ky from "ky";
-import { auth } from "./auth";
+import { auth } from "./firebase";
 
 const kyInstance = ky.create({
 	prefixUrl: "/api",
 	hooks: {
 		beforeRequest: [
 			async (req) => {
-				req.headers.append("idToken", await auth.currentUser.getIdToken(true));
+				if (!req.url.endsWith("leave")) {
+					req.headers.append("idToken", await auth.currentUser.getIdToken());
+				}
 			},
 		],
 	},

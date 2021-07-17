@@ -1,8 +1,6 @@
-import { db } from ".";
-import { getRandomBlackCard } from "../../utils/getRandomCard";
+import { db } from "backend-utils/db";
 import * as admin from "firebase-admin";
 import { auth } from "firebase-admin";
-import getNextCzar from "./getNextCzar";
 
 const handleCzarSelect = async (req, res) => {
 	try {
@@ -18,23 +16,10 @@ const handleCzarSelect = async (req, res) => {
 		}
 		await db.ref(roomPath).update({
 			[`players/${playerID}/points`]: admin.database.ServerValue.increment(10),
-			round: {
-				chosen: playerID,
-			},
+			["round/chosen"]: playerID,
 		});
-		
-		setTimeout(async () => {
-			await db.ref(`${roomPath}/playedBlackCards`).once("value", async (snap) => {
-				const playedBlackCards = [...snap.val(), blackCard];
-				await snap.ref.set(playedBlackCards);
-				await db.ref(`${roomPath}/round`).set({
-					blackCard: getRandomBlackCard(playedBlackCards),
-					whiteCards: {},
-					czar: await getNextCzar(roomCode, czar),
-				});
-			});
-		}, 3500);
-		res.json({ success: true });
+
+		res.json({ success: true, blackCard, czar });
 	} catch (error) {
 		console.error(error);
 		res.status(500).send(error?.message);

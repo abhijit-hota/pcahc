@@ -1,4 +1,4 @@
-import { extendTheme } from "@chakra-ui/react";
+import { extendTheme, createStandaloneToast } from "@chakra-ui/react";
 import { mode } from "@chakra-ui/theme-tools";
 
 const config = {
@@ -6,7 +6,7 @@ const config = {
 	useSystemColorMode: true,
 };
 
-const theme = extendTheme({
+export const theme = extendTheme({
 	config,
 	styles: {
 		global: (props) => ({
@@ -24,4 +24,12 @@ const theme = extendTheme({
 	},
 });
 
-export default theme;
+export const toast = createStandaloneToast({
+	colorMode: "dark",
+	defaultOptions: {
+		duration: 2000,
+		position: "top",
+		status: "info",
+		isClosable: false,
+	},
+});

@@ -1,8 +1,7 @@
 import { auth } from "firebase-admin";
-import { db } from ".";
-import { generateRoomCode } from "../../utils/generateRoomCode";
-import { getRandomBlackCard, getRandomWhiteCards } from "../../utils/getRandomCard";
-import { addLeaveListener } from "./addLeaveListener";
+import { db } from "backend-utils/db";
+import { generateRoomCode } from "backend-utils/generateRoomCode";
+import { getRandomBlackCard, getRandomWhiteCards } from "backend-utils/getRandomCard";
 
 const createRoomCode = async () => {
 	const code = generateRoomCode();
@@ -36,7 +35,6 @@ const handleCreateRoom = async (req, res) => {
 		const roomCode = await createRoomCode();
 		await createRoom(roomCode, { id: userID, name: username });
 		await auth().setCustomUserClaims(userID, { roomCode });
-		await addLeaveListener(roomCode);
 		res.json({ roomCode });
 	} catch (error) {
 		console.error(error);

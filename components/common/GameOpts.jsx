@@ -1,10 +1,14 @@
-import { Heading, IconButton, useClipboard, useToast, HStack } from "@chakra-ui/react";
+import { Heading, IconButton, useClipboard, HStack } from "@chakra-ui/react";
 import { CloseIcon, CopyIcon } from "@chakra-ui/icons";
-import api from "../utils/api";
+import api from "frontend-utils/api";
+import { auth } from "frontend-utils/firebase";
+import { CAH_ROOM_CODE } from "frontend-utils/tokenNames";
+import { useState } from "react";
+import { toast } from "frontend-utils/ui";
 
 export default function GameOpts({ code }) {
 	const { onCopy } = useClipboard(`${window.location.origin}?join=${code}` || "");
-	const toast = useToast();
+	const [isLeaving, setIsLeaving] = useState(false);
 
 	return (
 		<HStack>
@@ -19,8 +23,6 @@ export default function GameOpts({ code }) {
 				onClick={() => {
 					onCopy();
 					toast({
-						duration: 2000,
-						position: "top",
 						title: "Room Code copied",
 						status: "success",
 						isClosable: true,
@@ -37,8 +39,12 @@ export default function GameOpts({ code }) {
 				variant="ghost"
 				color="current"
 				marginLeft="2"
+				isLoading={isLeaving}
 				onClick={async () => {
-					await api.post("/leave-game");
+					setIsLeaving(true);
+					const { uid } = auth.currentUser;
+					await auth.signOut();
+					await api.post("/room/leave", { uid, roomCode: sessionStorage[CAH_ROOM_CODE] });
 					window.location.pathname = "/";
 				}}
 				icon={<CloseIcon />}

@@ -16,10 +16,9 @@ import {
 	Text,
 } from "@chakra-ui/react";
 import Avatar from "boring-avatars";
-import { CAH_PLAYER_ID, CAH_ROOM_CODE } from "../utils/tokenNames";
-import api from "../utils/api";
-import { auth } from "../utils/auth";
-
+import { CAH_PLAYER_ID, CAH_ROOM_CODE } from "frontend-utils/tokenNames";
+import api from "frontend-utils/api";
+import { auth } from "frontend-utils/firebase";
 const NAME_RE = /^[\w\d\s]{1,12}$/;
 const CODE_RE = /^[A-Z]{6}$/;
 
@@ -55,7 +54,7 @@ export default function Home() {
 		setLoading({ joining: false, creating: true });
 		try {
 			const { userID } = await signIn();
-			const { roomCode } = await api.post("/create-room", {
+			const { roomCode } = await api.post("/room/create", {
 				username,
 				userID,
 			});
@@ -70,7 +69,6 @@ export default function Home() {
 	const handleRoomJoin = async (code = roomCode) => {
 		const isNameInvalid = !NAME_RE.test(username);
 		const isCodeInvalid = !CODE_RE.test(code);
-		console.log(isCodeInvalid, code);
 		if (isCodeInvalid || isNameInvalid) {
 			setIsRoomCodeInvalid(isCodeInvalid);
 			setIsNameInvalid(isNameInvalid);
@@ -80,7 +78,7 @@ export default function Home() {
 		setLoading({ joining: true, creating: false });
 		try {
 			const { userID } = await signIn();
-			await api.post("/join-room", {
+			await api.post("/room/join", {
 				username,
 				userID,
 				roomCode: code,
@@ -88,7 +86,7 @@ export default function Home() {
 			await auth.currentUser.getIdToken(true);
 			handleSuccess(userID, code);
 		} catch (err) {
-			console.log(err);
+			console.error(err);
 			setIsRoomCodeInvalid(true);
 		}
 		setLoading({ joining: false, creating: false });
@@ -127,7 +125,7 @@ export default function Home() {
 
 					{isNameInvalid && (
 						<Text color="red.300" alignSelf="flex-start">
-							Type a name ffs (12 characters max)
+							12 characters max
 						</Text>
 					)}
 					<Divider sx={{ margin: "1rem 0 1rem 0 !important" }} />
@@ -143,7 +141,6 @@ export default function Home() {
 										if (isRoomCodeInvalid) {
 											setIsRoomCodeInvalid(false);
 										}
-										console.log(value, roomCode);
 										setRoomCode(value.toUpperCase());
 									}}
 									isInvalid={isRoomCodeInvalid}
@@ -168,7 +165,7 @@ export default function Home() {
 							</InputGroup>
 							{isRoomCodeInvalid && (
 								<Text color="red.300" alignSelf="flex-start">
-									Where&apos;d you get that code from, dumbass?
+									Invalid Code
 								</Text>
 							)}
 							<Heading fontWeight="thin" size="md" p="3">

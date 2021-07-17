@@ -11,9 +11,9 @@ import {
 	useDisclosure,
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon, InfoIcon } from "@chakra-ui/icons";
-import InfoModal from "./info-modal";
+import InfoModal from "./InfoModal";
 
-const GameOpts = dynamic(() => import("./game-opts"), { ssr: false });
+const GameOpts = dynamic(() => import("./GameOpts"), { ssr: false });
 
 const Header = () => {
 	const { toggleColorMode } = useColorMode();

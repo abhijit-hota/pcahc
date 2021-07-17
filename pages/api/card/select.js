@@ -1,6 +1,6 @@
 import { auth } from "firebase-admin";
-import { db } from ".";
-import { getRandomWhiteCards } from "../../utils/getRandomCard";
+import { db } from "backend-utils/db";
+import { getRandomWhiteCards } from "backend-utils/getRandomCard";
 
 const handlePlayCard = async (req, res) => {
 	try {
