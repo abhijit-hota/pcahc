@@ -17,7 +17,7 @@
     "firebase-admin": "9.9.0",
     "framer-motion": "4",
     "ky": "0.28.5",
-    "next": "11.0.1",
+    "next": "11.1.1",
     "page-lifecycle": "0.1.2",
     "react": "17.0.2",
     "react-dom": "17.0.2"
